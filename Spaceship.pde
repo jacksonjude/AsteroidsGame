@@ -51,19 +51,43 @@ class Spaceship extends Floater
   {
     if (myDirectionX != 0 && myDirectionY != 0)
     {
-      double dRadians = atan((float)(myDirectionY/myDirectionX));
-      int dRadiansSigNum = Math.signum(dRadians);
+      double dRadians = atan((float)(myDirectionX/myDirectionY));
+      //println("RADS: " + String.valueOf(dRadians) + " -- MOVEX: " + String.valueOf((dAmount) * Math.cos(dRadians)) + " -- MOVEY: " + String.valueOf((dAmount) * Math.sin(dRadians)));
+      println("RADS: " + String.valueOf(dRadians) + " -- MOVEX: " + String.valueOf(myDirectionX) + " -- MOVEY: " + String.valueOf(myDirectionY));
+      //println();
+      //println((dAmount) * Math.sin(dRadians));
+      //println(Math.signum(myDirectionX));
+      //println(Math.signum(myDirectionY));
+      int dirXSignum1 = (int)Math.signum(myDirectionX);
+      int dirYSignum1 = (int)Math.signum(myDirectionY);
 
-      myDirectionX -= ((dAmount) * Math.cos(dRadians));
-      myDirectionY -= ((dAmount) * Math.sin(dRadians));
-
-      double dRadians2 = atan((float)(myDirectionY/myDirectionX));
-      int dRadiansSigNum2 = Math.signum(dRadians2);
-
-      if (dRadians != dRadians2)
+      if (myDirectionX > 0)
       {
-        myDirectionY = 0;
+        myDirectionX -= Math.abs((dAmount) * Math.cos(dRadians));
+      }
+      if (myDirectionX < 0)
+      {
+        myDirectionX += Math.abs((dAmount) * Math.sin(dRadians));
+      }
+      if (myDirectionY > 0)
+      {
+        myDirectionY -= Math.abs((dAmount) * Math.sin(dRadians));
+      }
+      if (myDirectionY < 0)
+      {
+        myDirectionY += Math.abs((dAmount) * Math.cos(dRadians));
+      }
+
+      //double dRadians2 = atan((float)(myDirectionY/myDirectionX));
+      //int dRadiansSigNum2 = (int)Math.signum(dRadians2);
+
+      int dirXSignum2 = (int)Math.signum(myDirectionX);
+      int dirYSignum2 = (int)Math.signum(myDirectionY);
+
+      if (dirXSignum1 != dirXSignum2 || dirYSignum1 != dirYSignum2)
+      {
         myDirectionX = 0;
+        myDirectionY = 0;
       }
     }
   }

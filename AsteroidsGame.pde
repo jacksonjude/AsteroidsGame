@@ -66,12 +66,12 @@ public void accelerateShip()
   if (!isAccelerating)
   {
     spaceship.decelerate(-0.05);
-    println("SLOW");
+    //println("SLOW");
   }
   else
   {
     spaceship.accelerate(0.2);
-    println("FAST");
+    //println("FAST");
   }
   /*
     break;
