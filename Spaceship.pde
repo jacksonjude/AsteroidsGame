@@ -47,7 +47,7 @@ class Spaceship extends Floater
     }
   }
 
-  public void decelerate(double dAmount)
+  /*public void decelerate(double dAmount)
   {
     if (myDirectionX != 0 && myDirectionY != 0)
     {
@@ -80,6 +80,30 @@ class Spaceship extends Floater
 
       //double dRadians2 = atan((float)(myDirectionY/myDirectionX));
       //int dRadiansSigNum2 = (int)Math.signum(dRadians2);
+
+      int dirXSignum2 = (int)Math.signum(myDirectionX);
+      int dirYSignum2 = (int)Math.signum(myDirectionY);
+
+      if (dirXSignum1 != dirXSignum2 || dirYSignum1 != dirYSignum2)
+      {
+        myDirectionX = 0;
+        myDirectionY = 0;
+      }
+    }
+  }*/
+
+  public void decelerate(double dAmount)
+  {
+    if (myDirectionX != 0 && myDirectionY != 0)
+    {
+      int dirXSignum1 = (int)Math.signum(myDirectionX);
+      int dirYSignum1 = (int)Math.signum(myDirectionY);
+
+      double totalDirection = Math.sqrt(Math.pow(myDirectionX, 2) + Math.pow(myDirectionY, 2));
+      double dRadians = atan((float)(myDirectionY/myDirectionX));
+      totalDirection -= dAmount;
+      myDirectionX = (Math.signum(myDirectionX))*Math.abs(Math.cos(dRadians)*totalDirection);
+      myDirectionY = (Math.signum(myDirectionY))*Math.abs(Math.sin(dRadians)*totalDirection);
 
       int dirXSignum2 = (int)Math.signum(myDirectionX);
       int dirYSignum2 = (int)Math.signum(myDirectionY);

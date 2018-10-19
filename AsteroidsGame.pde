@@ -43,9 +43,9 @@ private boolean isAccelerating = false;
 
 public void keyPressed()
 {
-  switch (keyCode)
+  switch (key)
   {
-  case 32:
+  case 'w':
     isAccelerating = true;
     break;
   }
@@ -53,9 +53,9 @@ public void keyPressed()
 
 public void keyReleased()
 {
-  switch (keyCode)
+  switch (key)
   {
-  case 32:
+  case 'w':
     isAccelerating = false;
     break;
   }
@@ -65,30 +65,10 @@ public void accelerateShip()
 {
   if (!isAccelerating)
   {
-    spaceship.decelerate(-0.05);
-    //println("SLOW");
+    spaceship.decelerate(0.06);
   }
   else
   {
-    spaceship.accelerate(0.2);
-    //println("FAST");
+    spaceship.accelerate(0.1);
   }
-  /*
-    break;
-  case 32:
-    //int oldSignumX = (int)Math.signum(spaceship.getDirectionX());
-    //int oldSignumY = (int)Math.signum(spaceship.getDirectionY());
-    spaceship.accelerate(0.2);
-    println("FAST");
-
-    /*if (oldSignumX != (int)Math.signum(spaceship.getDirectionX()))
-    {
-      spaceship.setDirectionX(0);
-    }
-
-    if (oldSignumY != (int)Math.signum(spaceship.getDirectionY()))
-    {
-      spaceship.setDirectionY(0);
-    }
-  }*/
 }
