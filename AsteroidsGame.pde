@@ -1,10 +1,13 @@
-//your variable declarations here
+final char accelerateKey = 'w';
+final float spaceshipAccelerateAmount = 0.07;
+final float spaceshipDecelerateAmount = 0.02;
+final int spaceshipTurnAmount = 5;
+
 Spaceship spaceship;
 
 public void setup()
 {
   size(300,300);
-  //your code here
   spaceship = new Spaceship();
   spaceship.setX(width/2);
   spaceship.setY(height/2);
@@ -13,7 +16,6 @@ public void setup()
 public void draw()
 {
   background(0);
-  //your code here
   spaceship.move();
   turnShip();
   accelerateShip();
@@ -31,10 +33,10 @@ public void turnShip()
   switch (mouseButton)
   {
   case LEFT:
-    spaceship.turn(-5);
+    spaceship.turn(-spaceshipTurnAmount);
     break;
   case RIGHT:
-    spaceship.turn(5);
+    spaceship.turn(spaceshipTurnAmount);
     break;
   }
 }
@@ -45,7 +47,7 @@ public void keyPressed()
 {
   switch (key)
   {
-  case 'w':
+  case accelerateKey:
     isAccelerating = true;
     break;
   }
@@ -55,7 +57,7 @@ public void keyReleased()
 {
   switch (key)
   {
-  case 'w':
+  case accelerateKey:
     isAccelerating = false;
     break;
   }
@@ -65,10 +67,10 @@ public void accelerateShip()
 {
   if (!isAccelerating)
   {
-    spaceship.decelerate(0.06);
+    spaceship.decelerate(spaceshipDecelerateAmount);
   }
   else
   {
-    spaceship.accelerate(0.1);
+    spaceship.accelerate(spaceshipAccelerateAmount);
   }
 }
