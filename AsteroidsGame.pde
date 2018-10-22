@@ -2,15 +2,23 @@ final char accelerateKey = 'w';
 final float spaceshipAccelerateAmount = 0.07;
 final float spaceshipDecelerateAmount = 0.02;
 final int spaceshipTurnAmount = 5;
+final float asteroidSpeedMultiplier = 2.5;
 
 Spaceship spaceship;
+ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
 
 public void setup()
 {
-  size(300,300);
+  size(600,600);
   spaceship = new Spaceship();
   spaceship.setX(width/2);
   spaceship.setY(height/2);
+
+  int numAsteroids = 15;
+  for (int i=0; i < numAsteroids; i++)
+  {
+    asteroids.add(new Asteroid(Math.random()*asteroidSpeedMultiplier - asteroidSpeedMultiplier/2, Math.random()*asteroidSpeedMultiplier - asteroidSpeedMultiplier/2, Math.random()*2*PI));
+  }
 }
 
 public void draw()
@@ -21,6 +29,12 @@ public void draw()
   accelerateShip();
   spaceship.capMaxDirection();
   spaceship.show();
+
+  for (int i=0; i < asteroids.size(); i++)
+  {
+    asteroids.get(i).move();
+    asteroids.get(i).show();
+  }
 }
 
 public void turnShip()
