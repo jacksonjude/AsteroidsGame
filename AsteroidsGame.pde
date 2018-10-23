@@ -17,7 +17,7 @@ public void setup()
   int numAsteroids = 15;
   for (int i=0; i < numAsteroids; i++)
   {
-    asteroids.add(new Asteroid(Math.random()*asteroidSpeedMultiplier - asteroidSpeedMultiplier/2, Math.random()*asteroidSpeedMultiplier - asteroidSpeedMultiplier/2, Math.random()*2*PI));
+    asteroids.add(new Asteroid(Math.random()*asteroidSpeedMultiplier - asteroidSpeedMultiplier/2, Math.random()*asteroidSpeedMultiplier - asteroidSpeedMultiplier/2, Math.random()*2*PI, (int)(Math.random()*3)+1));
   }
 }
 
@@ -34,6 +34,10 @@ public void draw()
   {
     asteroids.get(i).move();
     asteroids.get(i).show();
+    if (asteroids.get(i).doesIntersect(spaceship))
+    {
+      
+    }
   }
 }
 
