@@ -3,9 +3,13 @@ final float spaceshipAccelerateAmount = 0.07;
 final float spaceshipDecelerateAmount = 0.02;
 final int spaceshipTurnAmount = 5;
 final float asteroidSpeedMultiplier = 2.5;
+final char fireBulletKey = 'f';
+final int bulletFireRate = 50;
+final float bulletSpeed = 2.0;
 
 Spaceship spaceship;
 ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
+ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 
 public void setup()
 {
@@ -36,8 +40,27 @@ public void draw()
     asteroids.get(i).show();
     if (asteroids.get(i).doesIntersect(spaceship))
     {
-      
+
     }
+
+    for (int j=0; j < bullets.size(); j++)
+    {
+      if (asteroids.get(i).doesIntersect(bullets.get(j)))
+      {
+
+      }
+    }
+  }
+
+  if (isFiring && ((frameCount % bulletFireRate - fireFrameOffset) == 0))
+  {
+    bullets.add(new Bullet((double)spaceship.getX(), (double)spaceship.getY(), spaceship.getPointDirection(), bulletSpeed));
+  }
+
+  for (int i=0; i < bullets.size(); i++)
+  {
+    bullets.get(i).move();
+    bullets.get(i).show();
   }
 }
 
@@ -60,6 +83,8 @@ public void turnShip()
 }
 
 private boolean isAccelerating = false;
+private float fireFrameOffset;
+private boolean isFiring = false;
 
 public void keyPressed()
 {
@@ -67,6 +92,9 @@ public void keyPressed()
   {
   case accelerateKey:
     isAccelerating = true;
+    break;
+  case fireBulletKey:
+    isFiring = true;
     break;
   }
 }

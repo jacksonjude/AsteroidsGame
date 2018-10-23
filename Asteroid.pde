@@ -13,13 +13,13 @@ class Asteroid extends Floater
   public double getPointDirection() { return myPointDirection; }
   public void setPointDirection(int degrees) { myPointDirection = degrees; }
 
-  public Asteroid(double myDirectionX, double myDirectionY, double myPointDirection, int asteroidSize)
+  public Asteroid(double directionX, double directionY, double pointDirection, int asteroidSize)
   {
     myColor = color(0);
 
-    this.myDirectionX = myDirectionX/asteroidSize;
-    this.myDirectionY = myDirectionY/asteroidSize;
-    this.myPointDirection = myPointDirection;
+    this.myDirectionX = directionX/asteroidSize;
+    this.myDirectionY = directionY/asteroidSize;
+    this.myPointDirection = pointDirection;
 
     this.myCenterX = (Math.random()*width)-(width/2);
     this.myCenterY = (Math.random()*height)-(height/2);
