@@ -1,5 +1,10 @@
 class Asteroid extends Floater
 {
+  private final int asteroidCornerRandom = 10;
+  private final int asteroidCornerConstant = 12;
+  private final int asteroidDeltaRandom = 5;
+  private final int asteroidDeltaConstant = 10;
+
   public int getX() { return (int) myCenterX; }
   public void setX(int x) { myCenterX = (double) x; }
   public int getY() { return (int) myCenterY; }
@@ -24,7 +29,7 @@ class Asteroid extends Floater
     this.myCenterX = (Math.random()*width)-(width/2);
     this.myCenterY = (Math.random()*height)-(height/2);
 
-    corners = (int)(Math.random()*10)+12;
+    corners = (int)(Math.random()*asteroidCornerRandom)+asteroidCornerConstant;
     xCorners = new int[corners];
     yCorners = new int[corners];
 
@@ -32,8 +37,8 @@ class Asteroid extends Floater
     for (int i=0; i < corners; i++)
     {
       rotationOn += 2*PI / corners;
-      xCorners[i] = (int)(asteroidSize*((Math.random()*5)+10)*cos(rotationOn));
-      yCorners[i] = (int)(asteroidSize*((Math.random()*5)+10)*sin(rotationOn));
+      xCorners[i] = (int)(asteroidSize*((Math.random()*asteroidDeltaRandom)+asteroidDeltaConstant)*cos(rotationOn));
+      yCorners[i] = (int)(asteroidSize*((Math.random()*asteroidDeltaRandom)+asteroidDeltaConstant)*sin(rotationOn));
     }
   }
 
@@ -45,6 +50,18 @@ class Asteroid extends Floater
 
   public boolean doesIntersect(Floater floater)
   {
-    return false;
+    return pnpoly(corners, xCorners, yCorners, (int)floater.getX(), (int)floater.getY());
+  }
+
+  boolean pnpoly(int nvert, int[] vertx, int[] verty, int testx, int testy)
+  {
+    int i, j;
+    boolean c = false;
+    for (i = 0, j = nvert-1; i < nvert; j = i++) {
+      if ( ((verty[i]>testy) != (verty[j]>testy)) &&
+       (testx < (vertx[j]-vertx[i]) * (testy-verty[i]) / (verty[j]-verty[i]) + vertx[i]) )
+         c = !c;
+    }
+    return c;
   }
 }

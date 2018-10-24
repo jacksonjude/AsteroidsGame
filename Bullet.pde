@@ -1,6 +1,6 @@
 class Bullet extends Floater
 {
-  private float decay = 100.0;
+  private float decay = 70.0;
 
   public int getX() { return (int) myCenterX; }
   public void setX(int x) { myCenterX = (double) x; }
@@ -22,6 +22,13 @@ class Bullet extends Floater
     this.myPointDirection = pointDirection;
     this.myDirectionX = bulletSpeed*Math.cos(myPointDirection*(Math.PI/180));
     this.myDirectionY = bulletSpeed*Math.sin(myPointDirection*(Math.PI/180));
+
+    corners = 4;
+    int[] xS = {1, 1, -1, -1};
+    int[] yS = {1, -1, -1, 1};
+
+    xCorners = xS;
+    yCorners = yS;
   }
 
   public void show()
