@@ -26,6 +26,9 @@ class Spaceship extends Floater
   public double getPointDirection() { return myPointDirection; }
   public void setPointDirection(int degrees) { myPointDirection = degrees; }
 
+  public int[] getXCorners() { return xCorners; }
+  public int[] getYCorners() { return yCorners; }
+
   private final int maxDirection = 5;
 
   public void capMaxDirection()

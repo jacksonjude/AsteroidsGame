@@ -50,7 +50,21 @@ class Asteroid extends Floater
 
   public boolean doesIntersect(Floater floater)
   {
-    return pnpoly(corners, xCorners, yCorners, (int)floater.getX(), (int)floater.getY());
+    return doesIntersectAtPoint((int)floater.getX(), (int)floater.getY());
+  }
+
+  public boolean doesIntersectAtPoint(int x, int y)
+  {
+    int[] xVertex = new int[corners];
+    int[] yVertex = new int[corners];
+    float dRadians = (float)(myPointDirection*(Math.PI/180));
+    for (int i=0; i < corners; i++)
+    {
+      xVertex[i] = (int)(xCorners[i]*Math.cos(dRadians) - yCorners[i]*Math.sin(dRadians)) + (int)myCenterX;
+      yVertex[i] = (int)(xCorners[i]*Math.sin(dRadians) + yCorners[i]*Math.cos(dRadians)) + (int)myCenterY;
+    }
+
+    return pnpoly(corners, xVertex, yVertex, x, y);
   }
 
   boolean pnpoly(int nvert, int[] vertx, int[] verty, int testx, int testy)
@@ -58,9 +72,10 @@ class Asteroid extends Floater
     int i, j;
     boolean c = false;
     for (i = 0, j = nvert-1; i < nvert; j = i++) {
-      if ( ((verty[i]>testy) != (verty[j]>testy)) &&
-       (testx < (vertx[j]-vertx[i]) * (testy-verty[i]) / (verty[j]-verty[i]) + vertx[i]) )
-         c = !c;
+      if (((verty[i]>testy) != (verty[j]>testy)) && (testx < (vertx[j]-vertx[i]) * (testy-verty[i]) / (verty[j]-verty[i]) + vertx[i]))
+      {
+        c = !c;
+      }
     }
     return c;
   }

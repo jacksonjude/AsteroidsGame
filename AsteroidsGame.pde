@@ -51,9 +51,13 @@ public void updateAsteroids()
   {
     asteroids.get(i).move();
     asteroids.get(i).show();
-    if (asteroids.get(i).doesIntersect(spaceship))
+
+    for (int k=0; k < spaceship.getXCorners().length; k++)
     {
-      println("SHIP INT");
+      if (asteroids.get(i).doesIntersectAtPoint(spaceship.getXCorners()[k] + spaceship.getX(), spaceship.getYCorners()[k] + spaceship.getY()))
+      {
+        println("SHIP INT");
+      }
     }
 
     for (int j=0; j < bullets.size(); j++)
