@@ -2,7 +2,7 @@ class Spaceship extends Floater
 {
   Spaceship()
   {
-    myColor = color(255);
+    myColor = color(0);
     corners = 4;
     int[] xS = {-8, 16, -8, -2};
     int[] yS = {-8, 0, 8, 0};
@@ -30,6 +30,8 @@ class Spaceship extends Floater
   public int[] getYCorners() { return yCorners; }
 
   private final int maxDirection = 5;
+
+  private int health = 1;
 
   public void capMaxDirection()
   {
@@ -65,6 +67,95 @@ class Spaceship extends Floater
         myDirectionX = 0;
         myDirectionY = 0;
       }
+    }
+  }
+
+  public void takeDamage(int amount)
+  {
+    health -= amount;
+  }
+
+  public boolean isAlive()
+  {
+    return health > 0;
+  }
+
+  public void show()
+  {
+    stroke(255);
+    super.show();
+  }
+
+  private ArrayList<Float> deathAnimationLineCoords = new ArrayList<Float>();
+
+  public void setDeathAnimationLines()
+  {
+    for (int i=0; i < corners; i+=2)
+    {
+      float x1, x2, y1, y2;
+      x1 = xCorners[i]+myCenterX;
+      y1 = yCorners[i]+myCenterY;
+      if (i+1 >= corners)
+      {
+        x2 = xCorners[0]+myCenterX;
+        y2 = yCorners[0]+myCenterY;
+      }
+      else
+      {
+        x2 = xCorners[i+1]+myCenterX;
+        y2 = yCorners[i+1]+myCenterY;
+      }
+
+      float middleX = (x1+x2)/2.0;
+      float middleY = (y1+y2)/2.0;
+
+      deathAnimationLineCoords.add(x1);
+      deathAnimationLineCoords.add(y1);
+      deathAnimationLineCoords.add(x2);
+      deathAnimationLineCoords.add(y2);
+      deathAnimationLineCoords.add(Math.atan(middleY/middleX));
+      deathAnimationLineCoords.add(100.0);
+    }
+
+  }
+
+  public void updateDeathAnimation()
+  {
+    for (int i=0; i < deathAnimationLineCoords.size(); i += 6)
+    {
+      Float lineX1 = deathAnimationLineCoords.get(i);
+      Float lineY1 = deathAnimationLineCoords.get(i+1);
+      Float lineX2 = deathAnimationLineCoords.get(i+2);
+      Float lineY2 = deathAnimationLineCoords.get(i+3);
+      Float pointDirection = deathAnimationLineCoords.get(i+4);
+      Float fade = deathAnimationLineCoords.get(i+5);
+
+      fade -= 1;
+      lineX1 += Math.cos(pointDirection)*0.5;
+      lineX2 += Math.cos(pointDirection)*0.5;
+      lineY2 += Math.sin(pointDirection)*0.5;
+      lineY2 += Math.sin(pointDirection)*0.5;
+
+      deathAnimationLineCoords.set(i, lineX1);
+      deathAnimationLineCoords.set(i+1, lineY1);
+      deathAnimationLineCoords.set(i+2, lineX2);
+      deathAnimationLineCoords.set(i+3, lineY2);
+      deathAnimationLineCoords.set(i+5, fade);
+    }
+  }
+
+  public void showDeathAnimation()
+  {
+    for (int i=0; i < deathAnimationLineCoords.size(); i += 6)
+    {
+      Float lineX1 = deathAnimationLineCoords.get(i);
+      Float lineY1 = deathAnimationLineCoords.get(i+1);
+      Float lineX2 = deathAnimationLineCoords.get(i+2);
+      Float lineY2 = deathAnimationLineCoords.get(i+3);
+      Float fade = deathAnimationLineCoords.get(i+5);
+
+      stroke(255, fade/100.0);
+      line(lineX1, lineY1, lineX2, lineY2);
     }
   }
 }

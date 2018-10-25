@@ -38,11 +38,19 @@ public void draw()
 
 public void updateShip()
 {
-  spaceship.move();
-  turnShip();
-  accelerateShip();
-  spaceship.capMaxDirection();
-  spaceship.show();
+  if (spaceship.isAlive())
+  {
+    spaceship.move();
+    turnShip();
+    accelerateShip();
+    spaceship.capMaxDirection();
+    spaceship.show();
+  }
+  else
+  {
+    spaceship.updateDeathAnimation();
+    spaceship.showDeathAnimation();
+  }
 }
 
 public void updateAsteroids()
@@ -54,9 +62,11 @@ public void updateAsteroids()
 
     for (int k=0; k < spaceship.getXCorners().length; k++)
     {
-      if (asteroids.get(i).doesIntersectAtPoint(spaceship.getXCorners()[k] + spaceship.getX(), spaceship.getYCorners()[k] + spaceship.getY()))
+      if (spaceship.isAlive() && asteroids.get(i).doesIntersectAtPoint(spaceship.getXCorners()[k] + spaceship.getX(), spaceship.getYCorners()[k] + spaceship.getY()))
       {
-        println("SHIP INT");
+        splitAsteroid(asteroids.get(i), spaceship);
+        spaceship.takeDamage(1);
+        asteroids.remove(i);
       }
     }
 
@@ -66,27 +76,7 @@ public void updateAsteroids()
       {
         if (asteroids.get(i).getSize() > 1)
         {
-          double asteroidDirectionX = asteroids.get(i).getDirectionX();
-          double asteroidDirectionY = asteroids.get(i).getDirectionY();
-          double bulletDirectionX = bullets.get(j).getDirectionX()/5;
-          double bulletDirectionY = bullets.get(j).getDirectionY()/5;
-
-          double netDirectionX = asteroidDirectionX + bulletDirectionX;
-          double netDirectionY = asteroidDirectionY + bulletDirectionY;
-          double netDirection = Math.sqrt(Math.pow(asteroidDirectionX, 2) + Math.pow(asteroidDirectionY, 2));
-
-          double asteroidPointDirection = asteroids.get(i).getPointDirection();
-          double bulletPointDirection = bullets.get(j).getPointDirection();
-          double newAsteroidPointDirection = (asteroidPointDirection + bulletPointDirection)/2;
-          Asteroid asteroid1 = new Asteroid(netDirectionX, netDirectionY, newAsteroidPointDirection, asteroids.get(i).getSize()-1);
-          Asteroid asteroid2 = new Asteroid(netDirection * Math.cos(-newAsteroidPointDirection), netDirection * Math.sin(-newAsteroidPointDirection), newAsteroidPointDirection, asteroids.get(i).getSize()-1);
-
-          asteroid1.setX(asteroids.get(i).getX());
-          asteroid1.setY(asteroids.get(i).getY());
-          asteroid2.setX(asteroids.get(i).getX());
-          asteroid2.setY(asteroids.get(i).getY());
-          asteroids.add(asteroid1);
-          asteroids.add(asteroid2);
+          splitAsteroid(asteroids.get(i), bullets.get(j));
         }
 
         asteroids.remove(i);
@@ -96,22 +86,50 @@ public void updateAsteroids()
   }
 }
 
+public void splitAsteroid(Asteroid asteroid, Floater crasher)
+{
+  double asteroidDirectionX = asteroid.getDirectionX();
+  double asteroidDirectionY = asteroid.getDirectionY();
+  double crasherDirectionX = crasher.getDirectionX()/5;
+  double crasherDirectionY = crasher.getDirectionY()/5;
+
+  double netDirectionX = asteroidDirectionX + crasherDirectionX;
+  double netDirectionY = asteroidDirectionY + crasherDirectionY;
+  double netDirection = Math.sqrt(Math.pow(asteroidDirectionX, 2) + Math.pow(asteroidDirectionY, 2));
+
+  double asteroidPointDirection = asteroid.getPointDirection();
+  double bulletPointDirection = crasher.getPointDirection();
+  double newAsteroidPointDirection = (asteroidPointDirection + bulletPointDirection)/2;
+  Asteroid asteroid1 = new Asteroid(netDirectionX, netDirectionY, newAsteroidPointDirection, asteroid.getSize()-1);
+  Asteroid asteroid2 = new Asteroid(netDirection * Math.cos(-newAsteroidPointDirection), netDirection * Math.sin(-newAsteroidPointDirection), newAsteroidPointDirection, asteroid.getSize()-1);
+
+  asteroid1.setX(asteroid.getX());
+  asteroid1.setY(asteroid.getY());
+  asteroid2.setX(asteroid.getX());
+  asteroid2.setY(asteroid.getY());
+  asteroids.add(asteroid1);
+  asteroids.add(asteroid2);
+}
+
 public void updateBullets()
 {
-  if (isFiring && ((frameCount % bulletFireRate - fireFrameOffset) == 0))
+  if (spaceship.isAlive())
   {
-    bullets.add(new Bullet((double)spaceship.getX(), (double)spaceship.getY(), spaceship.getPointDirection(), bulletSpeed));
-  }
-
-  for (int i=0; i < bullets.size(); i++)
-  {
-    if (bullets.get(i).shouldDelete())
+    if (isFiring && ((frameCount % bulletFireRate - fireFrameOffset) == 0))
     {
-      bullets.remove(i);
-      continue;
+      bullets.add(new Bullet((double)spaceship.getX(), (double)spaceship.getY(), spaceship.getPointDirection(), bulletSpeed));
     }
-    bullets.get(i).move();
-    bullets.get(i).show();
+
+    for (int i=0; i < bullets.size(); i++)
+    {
+      if (bullets.get(i).shouldDelete())
+      {
+        bullets.remove(i);
+        continue;
+      }
+      bullets.get(i).move();
+      bullets.get(i).show();
+    }
   }
 }
 
