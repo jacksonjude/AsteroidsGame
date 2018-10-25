@@ -62,9 +62,35 @@ public void updateAsteroids()
 
     for (int j=0; j < bullets.size(); j++)
     {
-      if (asteroids.get(i).doesIntersect(bullets.get(j)))
+      if (j < bullets.size() && i < asteroids.size() && asteroids.get(i).doesIntersect(bullets.get(j)))
       {
-        println("BULLET INT");
+        if (asteroids.get(i).getSize() > 1)
+        {
+          double asteroidDirectionX = asteroids.get(i).getDirectionX();
+          double asteroidDirectionY = asteroids.get(i).getDirectionY();
+          double bulletDirectionX = bullets.get(j).getDirectionX()/5;
+          double bulletDirectionY = bullets.get(j).getDirectionY()/5;
+
+          double netDirectionX = asteroidDirectionX + bulletDirectionX;
+          double netDirectionY = asteroidDirectionY + bulletDirectionY;
+          double netDirection = Math.sqrt(Math.pow(asteroidDirectionX, 2) + Math.pow(asteroidDirectionY, 2));
+
+          double asteroidPointDirection = asteroids.get(i).getPointDirection();
+          double bulletPointDirection = bullets.get(j).getPointDirection();
+          double newAsteroidPointDirection = (asteroidPointDirection + bulletPointDirection)/2;
+          Asteroid asteroid1 = new Asteroid(netDirectionX, netDirectionY, newAsteroidPointDirection, asteroids.get(i).getSize()-1);
+          Asteroid asteroid2 = new Asteroid(netDirection * Math.cos(-newAsteroidPointDirection), netDirection * Math.sin(-newAsteroidPointDirection), newAsteroidPointDirection, asteroids.get(i).getSize()-1);
+
+          asteroid1.setX(asteroids.get(i).getX());
+          asteroid1.setY(asteroids.get(i).getY());
+          asteroid2.setX(asteroids.get(i).getX());
+          asteroid2.setY(asteroids.get(i).getY());
+          asteroids.add(asteroid1);
+          asteroids.add(asteroid2);
+        }
+
+        asteroids.remove(i);
+        bullets.remove(j);
       }
     }
   }

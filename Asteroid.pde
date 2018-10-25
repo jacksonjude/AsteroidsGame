@@ -18,6 +18,13 @@ class Asteroid extends Floater
   public double getPointDirection() { return myPointDirection; }
   public void setPointDirection(int degrees) { myPointDirection = degrees; }
 
+  public int[] getXCorners() { return xCorners; }
+  public int[] getYCorners() { return yCorners; }
+
+  public int getSize() { return asteroidSize; }
+
+  private int asteroidSize;
+
   public Asteroid(double directionX, double directionY, double pointDirection, int asteroidSize)
   {
     myColor = color(0);
@@ -28,6 +35,8 @@ class Asteroid extends Floater
 
     this.myCenterX = (Math.random()*width)-(width/2);
     this.myCenterY = (Math.random()*height)-(height/2);
+
+    this.asteroidSize = asteroidSize;
 
     corners = (int)(Math.random()*asteroidCornerRandom)+asteroidCornerConstant;
     xCorners = new int[corners];
@@ -50,7 +59,15 @@ class Asteroid extends Floater
 
   public boolean doesIntersect(Floater floater)
   {
-    return doesIntersectAtPoint((int)floater.getX(), (int)floater.getY());
+    boolean intersection = false;
+    for (int k=0; k < floater.getXCorners().length; k++)
+    {
+      if (doesIntersectAtPoint(floater.getXCorners()[k] + floater.getX(), floater.getYCorners()[k] + floater.getY()))
+      {
+        intersection = true;
+      }
+    }
+    return intersection;
   }
 
   public boolean doesIntersectAtPoint(int x, int y)
