@@ -138,6 +138,8 @@ public void mousePressed()
   if (mouseButton == LEFT)
   {
     isFiring = true;
+
+    if (fireFrameOffset == 0)
     fireFrameOffset = frameCount % bulletFireRate + 1;
   }
 }

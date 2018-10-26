@@ -73,6 +73,10 @@ class Spaceship extends Floater
   public void takeDamage(int amount)
   {
     health -= amount;
+    if (!isAlive())
+    {
+      setDeathAnimationLines();
+    }
   }
 
   public boolean isAlive()
@@ -90,21 +94,31 @@ class Spaceship extends Floater
 
   public void setDeathAnimationLines()
   {
-    for (int i=0; i < corners; i+=2)
+    for (int i=0; i < corners; i+=1)
     {
       float x1, x2, y1, y2;
-      x1 = xCorners[i]+myCenterX;
-      y1 = yCorners[i]+myCenterY;
+      x1 = (float)(xCorners[i]);
+      y1 = (float)(yCorners[i]);
       if (i+1 >= corners)
       {
-        x2 = xCorners[0]+myCenterX;
-        y2 = yCorners[0]+myCenterY;
+        x2 = (float)(xCorners[0]);
+        y2 = (float)(yCorners[0]);
       }
       else
       {
-        x2 = xCorners[i+1]+myCenterX;
-        y2 = yCorners[i+1]+myCenterY;
+        x2 = (float)(xCorners[i+1]);
+        y2 = (float)(yCorners[i+1]);
       }
+
+      float dRadians = (float)(myPointDirection*(Math.PI/180));
+      //x1 = (float)((x1*Math.cos(dRadians) - y1*Math.sin(dRadians)) + myCenterX);
+      //y1 = (float)((x1*Math.sin(dRadians) + y1*Math.cos(dRadians)) + myCenterY);
+      //x2 = (float)((x2*Math.cos(dRadians) - y2*Math.sin(dRadians)) + myCenterX);
+      //y2 = (float)((x2*Math.sin(dRadians) + y2*Math.cos(dRadians)) + myCenterY);
+      x1 += myCenterX;
+      x2 += myCenterX;
+      y1 += myCenterY;
+      y2 += myCenterY;
 
       float middleX = (x1+x2)/2.0;
       float middleY = (y1+y2)/2.0;
@@ -113,7 +127,7 @@ class Spaceship extends Floater
       deathAnimationLineCoords.add(y1);
       deathAnimationLineCoords.add(x2);
       deathAnimationLineCoords.add(y2);
-      deathAnimationLineCoords.add(Math.atan(middleY/middleX));
+      deathAnimationLineCoords.add((float)Math.atan(middleY/middleX));
       deathAnimationLineCoords.add(100.0);
     }
 
@@ -131,16 +145,26 @@ class Spaceship extends Floater
       Float fade = deathAnimationLineCoords.get(i+5);
 
       fade -= 1;
-      lineX1 += Math.cos(pointDirection)*0.5;
-      lineX2 += Math.cos(pointDirection)*0.5;
-      lineY2 += Math.sin(pointDirection)*0.5;
-      lineY2 += Math.sin(pointDirection)*0.5;
+      lineX1 += (float)Math.cos(pointDirection)*0.5;
+      lineX2 += (float)Math.cos(pointDirection)*0.5;
+      lineY2 += (float)Math.sin(pointDirection)*0.5;
+      lineY2 += (float)Math.sin(pointDirection)*0.5;
 
       deathAnimationLineCoords.set(i, lineX1);
       deathAnimationLineCoords.set(i+1, lineY1);
       deathAnimationLineCoords.set(i+2, lineX2);
       deathAnimationLineCoords.set(i+3, lineY2);
       deathAnimationLineCoords.set(i+5, fade);
+
+      if (fade < 0)
+      {
+        deathAnimationLineCoords.remove(i);
+        deathAnimationLineCoords.remove(i);
+        deathAnimationLineCoords.remove(i);
+        deathAnimationLineCoords.remove(i);
+        deathAnimationLineCoords.remove(i);
+        deathAnimationLineCoords.remove(i);
+      }
     }
   }
 
@@ -154,7 +178,7 @@ class Spaceship extends Floater
       Float lineY2 = deathAnimationLineCoords.get(i+3);
       Float fade = deathAnimationLineCoords.get(i+5);
 
-      stroke(255, fade/100.0);
+      stroke(255, fade);
       line(lineX1, lineY1, lineX2, lineY2);
     }
   }
