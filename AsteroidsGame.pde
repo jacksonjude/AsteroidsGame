@@ -1,6 +1,6 @@
 final char accelerateKey = 87;
-final float spaceshipAccelerateAmount = 0.05;
-final float spaceshipDecelerateAmount = 0.02;
+final float spaceshipAccelerateAmount = 0.06;
+final float spaceshipDecelerateAmount = 0.01;
 final int spaceshipTurnAmount = 5;
 final float asteroidSpeedMultiplier = 2.5;
 final char fireBulletKey = 32;
@@ -115,9 +115,18 @@ public void updateBullets()
 {
   if (spaceship.isAlive())
   {
-    if (isFiring && ((frameCount % bulletFireRate - fireFrameOffset) == 0))
+    if (isFiring && ((frameCount % bulletFireRate - fireFrameOffset) == 0) && rechargeTime == 0)
     {
       bullets.add(new Bullet((double)spaceship.getX(), (double)spaceship.getY(), spaceship.getPointDirection(), bulletSpeed));
+    }
+
+    if (rechargeTime > 0)
+    {
+      rechargeTime -= 1;
+    }
+    if (rechargeTime < 0)
+    {
+      rechargeTime = 0;
     }
 
     for (int i=0; i < bullets.size(); i++)
@@ -138,9 +147,10 @@ public void mousePressed()
   if (mouseButton == LEFT)
   {
     isFiring = true;
-
-    if (fireFrameOffset == 0)
-    fireFrameOffset = frameCount % bulletFireRate + 1;
+    if (rechargeTime <= 0)
+    {
+      fireFrameOffset = frameCount % bulletFireRate + 1;
+    }
   }
 }
 
@@ -149,26 +159,16 @@ public void mouseReleased()
   if (mouseButton == LEFT)
   {
     isFiring = false;
+
+    if (rechargeTime <= 0)
+    {
+      rechargeTime = (int)(fireFrameOffset - (frameCount % bulletFireRate));
+    }
   }
 }
 
 public void turnShip()
 {
-  /*if (!mousePressed)
-  {
-    return;
-  }
-
-  switch (mouseButton)
-  {
-  case LEFT:
-    spaceship.turn(-spaceshipTurnAmount);
-    break;
-  case RIGHT:
-    spaceship.turn(spaceshipTurnAmount);
-    break;
-  }*/
-
   switch (turningSpaceship)
   {
   case LEFT:
@@ -183,6 +183,7 @@ public void turnShip()
 private boolean isAccelerating = false;
 private float fireFrameOffset;
 private boolean isFiring = false;
+private int rechargeTime = 0;
 private int turningSpaceship = 0;
 
 public void keyPressed()

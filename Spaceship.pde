@@ -111,10 +111,11 @@ class Spaceship extends Floater
       }
 
       float dRadians = (float)(myPointDirection*(Math.PI/180));
-      //x1 = (float)((x1*Math.cos(dRadians) - y1*Math.sin(dRadians)) + myCenterX);
-      //y1 = (float)((x1*Math.sin(dRadians) + y1*Math.cos(dRadians)) + myCenterY);
-      //x2 = (float)((x2*Math.cos(dRadians) - y2*Math.sin(dRadians)) + myCenterX);
-      //y2 = (float)((x2*Math.sin(dRadians) + y2*Math.cos(dRadians)) + myCenterY);
+      x1 = (float)((x1*Math.cos(dRadians) - y1*Math.sin(dRadians)));
+      y1 = (float)((x1*Math.sin(dRadians) + y1*Math.cos(dRadians)));
+      x2 = (float)((x2*Math.cos(dRadians) - y2*Math.sin(dRadians)));
+      y2 = (float)((x2*Math.sin(dRadians) + y2*Math.cos(dRadians)));
+
       x1 += myCenterX;
       x2 += myCenterX;
       y1 += myCenterY;
@@ -145,10 +146,10 @@ class Spaceship extends Floater
       Float fade = deathAnimationLineCoords.get(i+5);
 
       fade -= 1;
-      lineX1 += (float)Math.cos(pointDirection)*0.5;
-      lineX2 += (float)Math.cos(pointDirection)*0.5;
-      lineY2 += (float)Math.sin(pointDirection)*0.5;
-      lineY2 += (float)Math.sin(pointDirection)*0.5;
+      lineX1 += (float)Math.cos(pointDirection)*0.1;
+      lineX2 += (float)Math.cos(pointDirection)*0.3;
+      lineY1 += (float)Math.sin(pointDirection)*0.1;
+      lineY2 += (float)Math.sin(pointDirection)*0.3;
 
       deathAnimationLineCoords.set(i, lineX1);
       deathAnimationLineCoords.set(i+1, lineY1);
