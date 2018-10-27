@@ -1,8 +1,8 @@
 final char accelerateKey = 87;
-final float spaceshipAccelerateAmount = 0.06;
+final float spaceshipAccelerateAmount = 0.08;
 final float spaceshipDecelerateAmount = 0.01;
 final int spaceshipTurnAmount = 5;
-final float asteroidSpeedMultiplier = 2.5;
+final float asteroidSpeedMultiplier = 4;
 final char fireBulletKey = 32;
 final int bulletFireRate = 30;
 final float bulletSpeed = 5.0;
@@ -13,13 +13,25 @@ Spaceship spaceship;
 ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 
+private int gameScore = 0;
+
 public void setup()
 {
   size(600,600);
+
+  setupShip();
+  createAsteroids();
+}
+
+public void setupShip()
+{
   spaceship = new Spaceship();
   spaceship.setX(width/2);
   spaceship.setY(height/2);
+}
 
+public void createAsteroids()
+{
   int numAsteroids = 15;
   for (int i=0; i < numAsteroids; i++)
   {
@@ -34,6 +46,7 @@ public void draw()
   updateShip();
   updateAsteroids();
   updateBullets();
+  updateScores();
 }
 
 public void updateShip()
@@ -115,8 +128,9 @@ public void updateBullets()
 {
   if (spaceship.isAlive())
   {
-    if (isFiring && ((frameCount % bulletFireRate - fireFrameOffset) == 0) && rechargeTime == 0)
+    if (isFiring && rechargeTime == 0)
     {
+      rechargeTime = bulletFireRate;
       bullets.add(new Bullet((double)spaceship.getX(), (double)spaceship.getY(), spaceship.getPointDirection(), bulletSpeed));
     }
 
@@ -149,7 +163,7 @@ public void mousePressed()
     isFiring = true;
     if (rechargeTime <= 0)
     {
-      fireFrameOffset = frameCount % bulletFireRate + 1;
+      updateBullets();
     }
   }
 }
@@ -162,7 +176,7 @@ public void mouseReleased()
 
     if (rechargeTime <= 0)
     {
-      rechargeTime = (int)(fireFrameOffset - (frameCount % bulletFireRate));
+      rechargeTime = bulletFireRate;
     }
   }
 }
@@ -180,6 +194,43 @@ public void turnShip()
   }
 }
 
+private final int newGameBlinkSpeed = 120;
+private final int newGameBlinkOffset = 90;
+private int gameOverOffsetFrame = 0;
+private int gameOverFrame = 0;
+
+public void updateScores()
+{
+  if (spaceship.isAlive())
+  {
+    textSize(25);
+    textAlign(LEFT);
+    fill(255);
+    text(gameScore, 5, 30);
+  }
+  else if (spaceship.finishedDeathAnimation())
+  {
+    if (gameOverOffsetFrame == 0)
+    {
+      gameOverOffsetFrame = frameCount + newGameBlinkOffset;
+    }
+    gameOverFrame += 1;
+
+    textSize(40);
+    textAlign(CENTER);
+    fill(255);
+    text("G A M E   O V E R", width/2, height/2 - 40/2);
+
+    if (gameOverFrame > newGameBlinkOffset && (frameCount - gameOverOffsetFrame) % newGameBlinkSpeed > newGameBlinkSpeed/2)
+    {
+      textSize(15);
+      textAlign(CENTER);
+      fill(255);
+      text("Press SPACE", width/2, height/2 + 15/2);
+    }
+  }
+}
+
 private boolean isAccelerating = false;
 private float fireFrameOffset;
 private boolean isFiring = false;
@@ -194,10 +245,15 @@ public void keyPressed()
     isAccelerating = true;
     break;
   case fireBulletKey:
-    if (!isFiring)
+    if (spaceship.isAlive() && !isFiring)
     {
       isFiring = true;
       fireFrameOffset = frameCount % bulletFireRate + 1;
+    }
+
+    if (!spaceship.isAlive() && spaceship.finishedDeathAnimation())
+    {
+      resetGame();
     }
     break;
   case turnLeftKey:
@@ -235,4 +291,17 @@ public void accelerateShip()
   {
     spaceship.accelerate(spaceshipAccelerateAmount);
   }
+}
+
+public void resetGame()
+{
+  spaceship.setX(width/2);
+  spaceship.setY(height/2);
+  spaceship.setDirectionX(0);
+  spaceship.setDirectionY(0);
+  spaceship.setPointDirection(0);
+  spaceship.setHealth(1);
+
+  asteroids.removeAll(asteroids);
+  createAsteroids();
 }

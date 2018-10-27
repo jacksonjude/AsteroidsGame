@@ -1,6 +1,6 @@
 class Bullet extends Floater
 {
-  private float decay = 70.0;
+  private float decay = 255.0;
 
   public int getX() { return (int) myCenterX; }
   public void setX(int x) { myCenterX = (double) x; }
@@ -36,8 +36,9 @@ class Bullet extends Floater
 
   public void show()
   {
-    decay -= 1.0;
-    myColor = color(255, decay/100.0);
+    decay -= 2.55;
+    myColor = color(255, decay);
+    stroke(255, decay);
     super.show();
   }
 
