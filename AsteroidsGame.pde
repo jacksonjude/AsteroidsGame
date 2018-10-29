@@ -94,6 +94,7 @@ public void updateAsteroids()
 
         asteroids.remove(i);
         bullets.remove(j);
+        gameScore += 1;
       }
     }
   }
@@ -304,4 +305,6 @@ public void resetGame()
 
   asteroids.removeAll(asteroids);
   createAsteroids();
+
+  gameScore = 0;
 }
