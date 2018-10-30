@@ -2,12 +2,13 @@ final char accelerateKey = 87;
 final float spaceshipAccelerateAmount = 0.08;
 final float spaceshipDecelerateAmount = 0.01;
 final int spaceshipTurnAmount = 5;
-final float asteroidSpeedMultiplier = 4;
 final char fireBulletKey = 32;
-final int bulletFireRate = 30;
+final int bulletFireRate = 20;
 final float bulletSpeed = 5.0;
 final char turnLeftKey = 65;
 final char turnRightKey = 68;
+
+private float asteroidSpeedMultiplier = 4;
 
 Spaceship spaceship;
 ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
@@ -32,10 +33,10 @@ public void setupShip()
 
 public void createAsteroids()
 {
-  int numAsteroids = 15;
+  int numAsteroids = 10;
   for (int i=0; i < numAsteroids; i++)
   {
-    asteroids.add(new Asteroid(Math.random()*asteroidSpeedMultiplier - asteroidSpeedMultiplier/2, Math.random()*asteroidSpeedMultiplier - asteroidSpeedMultiplier/2, Math.random()*2*PI, (int)(Math.random()*3)+1));
+    asteroids.add(new Asteroid(Math.random()*asteroidSpeedMultiplier - asteroidSpeedMultiplier/2, Math.random()*asteroidSpeedMultiplier - asteroidSpeedMultiplier/2, Math.random()*2*PI, (int)(Math.random()*2)+2));
   }
 }
 
@@ -95,6 +96,11 @@ public void updateAsteroids()
         asteroids.remove(i);
         bullets.remove(j);
         gameScore += 1;
+
+        if (asteroids.size() == 0)
+        {
+          newLevel();
+        }
       }
     }
   }
@@ -306,5 +312,14 @@ public void resetGame()
   asteroids.removeAll(asteroids);
   createAsteroids();
 
+  bullets.removeAll(bullets);
+
   gameScore = 0;
+}
+
+public void newLevel()
+{
+  asteroidSpeedMultiplier += 1.618;
+  createAsteroids();
+  bullets.removeAll(bullets);
 }
