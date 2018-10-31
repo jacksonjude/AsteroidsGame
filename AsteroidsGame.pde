@@ -7,12 +7,14 @@ final int bulletFireRate = 20;
 final float bulletSpeed = 5.0;
 final char turnLeftKey = 65;
 final char turnRightKey = 68;
+final char hyperspaceKey = 72;
 
 private float asteroidSpeedMultiplier = 4;
 
 Spaceship spaceship;
 ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
+ArrayList<Star> stars = new ArrayList<Star>();
 
 private int gameScore = 0;
 
@@ -22,6 +24,7 @@ public void setup()
 
   setupShip();
   createAsteroids();
+  createStars();
 }
 
 public void setupShip()
@@ -40,10 +43,20 @@ public void createAsteroids()
   }
 }
 
+public void createStars()
+{
+  int numStars = 30;
+  for (int i=0; i < numStars; i++)
+  {
+    stars.add(new Star());
+  }
+}
+
 public void draw()
 {
   background(0);
 
+  updateStars();
   updateShip();
   updateAsteroids();
   updateBullets();
@@ -60,7 +73,7 @@ public void updateShip()
     spaceship.capMaxDirection();
     spaceship.show();
   }
-  else
+  else if (!spaceship.finishedDeathAnimation())
   {
     spaceship.updateDeathAnimation();
     spaceship.showDeathAnimation();
@@ -86,7 +99,7 @@ public void updateAsteroids()
 
     for (int j=0; j < bullets.size(); j++)
     {
-      if (j < bullets.size() && i < asteroids.size() && asteroids.get(i).doesIntersect(bullets.get(j)))
+      if (spaceship.isAlive() && j < bullets.size() && i < asteroids.size() && asteroids.get(i).doesIntersect(bullets.get(j)))
       {
         if (asteroids.get(i).getSize() > 1)
         {
@@ -228,12 +241,17 @@ public void updateScores()
     fill(255);
     text("G A M E   O V E R", width/2, height/2 - 40/2);
 
+    textSize(20);
+    textAlign(CENTER);
+    fill(255);
+    text("SCORE: " + gameScore, width/2, height/2 + 15/2);
+
     if (gameOverFrame > newGameBlinkOffset && (frameCount - gameOverOffsetFrame) % newGameBlinkSpeed > newGameBlinkSpeed/2)
     {
       textSize(15);
       textAlign(CENTER);
       fill(255);
-      text("Press SPACE", width/2, height/2 + 15/2);
+      text("Press SPACE", width/2, height/2 + 55/2);
     }
   }
 }
@@ -269,6 +287,11 @@ public void keyPressed()
   case turnRightKey:
     turningSpaceship = RIGHT;
     break;
+  case hyperspaceKey:
+    spaceship.setX((int)(Math.random()*width));
+    spaceship.setY((int)(Math.random()*height));
+    spaceship.setDirectionX(0);
+    spaceship.setDirectionY(0);
   }
 }
 
@@ -315,6 +338,8 @@ public void resetGame()
   bullets.removeAll(bullets);
 
   gameScore = 0;
+
+  gameOverOffsetFrame = 0;
 }
 
 public void newLevel()
@@ -322,4 +347,13 @@ public void newLevel()
   asteroidSpeedMultiplier += 1.618;
   createAsteroids();
   bullets.removeAll(bullets);
+}
+
+public void updateStars()
+{
+  for (int i=0; i < stars.size(); i++)
+  {
+    stars.get(i).randomizeStarFill();
+    stars.get(i).show();
+  }
 }
