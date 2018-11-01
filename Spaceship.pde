@@ -39,12 +39,12 @@ class Spaceship extends Floater
   {
     if (Math.abs(myDirectionX) > maxDirection)
     {
-      myDirectionX = maxDirection * Math.signum(myDirectionX);
+      myDirectionX = maxDirection * signum1(myDirectionX);
     }
 
     if (Math.abs(myDirectionY) > maxDirection)
     {
-      myDirectionY = maxDirection * Math.signum(myDirectionY);
+      myDirectionY = maxDirection * signum1(myDirectionY);
     }
   }
 
@@ -52,17 +52,17 @@ class Spaceship extends Floater
   {
     if (myDirectionX != 0 && myDirectionY != 0)
     {
-      int dirXSignum1 = (int)Math.signum(myDirectionX);
-      int dirYSignum1 = (int)Math.signum(myDirectionY);
+      int dirXSignum1 = (int)signum1(myDirectionX);
+      int dirYSignum1 = (int)signum1(myDirectionY);
 
       double totalDirection = Math.sqrt(Math.pow(myDirectionX, 2) + Math.pow(myDirectionY, 2));
       double dRadians = atan((float)(myDirectionY/myDirectionX));
       totalDirection -= dAmount;
-      myDirectionX = (Math.signum(myDirectionX))*Math.abs(Math.cos(dRadians)*totalDirection);
-      myDirectionY = (Math.signum(myDirectionY))*Math.abs(Math.sin(dRadians)*totalDirection);
+      myDirectionX = (signum1(myDirectionX))*Math.abs(Math.cos(dRadians)*totalDirection);
+      myDirectionY = (signum1(myDirectionY))*Math.abs(Math.sin(dRadians)*totalDirection);
 
-      int dirXSignum2 = (int)Math.signum(myDirectionX);
-      int dirYSignum2 = (int)Math.signum(myDirectionY);
+      int dirXSignum2 = (int)signum1(myDirectionX);
+      int dirYSignum2 = (int)signum1(myDirectionY);
 
       if (dirXSignum1 != dirXSignum2 || dirYSignum1 != dirYSignum2)
       {
