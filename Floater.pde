@@ -1,4 +1,4 @@
-/*abstract class Floater //Do NOT modify the Floater class! Make changes in the Spaceship class
+abstract class Floater //Do NOT modify the Floater class! Make changes in the Spaceship class
 {
   protected int corners;  //the number of corners, a triangular floater has 3
   protected int[] xCorners;
@@ -85,4 +85,20 @@
     rotate(-1*dRadians);
     translate(-1*(float)myCenterX, -1*(float)myCenterY);
   }
-}*/
+
+  public int signum1(double num)
+  {
+    if (num > 0)
+    {
+      return 1;
+    }
+    else if (num < 0)
+    {
+      return -1;
+    }
+    else
+    {
+      return 0;
+    }
+  }
+}

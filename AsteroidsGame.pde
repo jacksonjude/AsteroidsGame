@@ -358,7 +358,7 @@ public void updateStars()
   }
 }
 
-abstract class Floater //Do NOT modify the Floater class! Make changes in the Spaceship class
+/*abstract class Floater //Do NOT modify the Floater class! Make changes in the Spaceship class
 {
   protected int corners;  //the number of corners, a triangular floater has 3
   protected int[] xCorners;
@@ -821,7 +821,7 @@ class Star
     //triangle(myX - starSize/4, myY - starSize/4, myX + starSize/4, myY - starSize/4, myX, myY + starSize);
     //quad(myX - starSize/4, myY - starSize/4, myX + starSize/4, myY - starSize/4, myX + starSize/4, myY + starSize/4, myX - starSize/4, myY + starSize/4);
   }
-}
+}*/
 
 public int signum1(double num)
 {

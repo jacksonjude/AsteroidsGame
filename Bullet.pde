@@ -1,4 +1,4 @@
-/*class Bullet extends Floater
+class Bullet extends Floater
 {
   private float decay = 255.0;
 
@@ -46,4 +46,20 @@
   {
     return decay <= 0.0;
   }
-}*/
+
+  public int signum1(double num)
+  {
+    if (num > 0)
+    {
+      return 1;
+    }
+    else if (num < 0)
+    {
+      return -1;
+    }
+    else
+    {
+      return 0;
+    }
+  }
+}

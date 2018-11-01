@@ -1,4 +1,4 @@
-/*class Asteroid extends Floater
+class Asteroid extends Floater
 {
   private final int asteroidCornerRandom = 10;
   private final int asteroidCornerConstant = 12;
@@ -96,4 +96,20 @@
     }
     return c;
   }
-}*/
+
+  public int signum1(double num)
+  {
+    if (num > 0)
+    {
+      return 1;
+    }
+    else if (num < 0)
+    {
+      return -1;
+    }
+    else
+    {
+      return 0;
+    }
+  }
+}

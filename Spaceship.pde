@@ -1,4 +1,4 @@
-/*class Spaceship extends Floater
+class Spaceship extends Floater
 {
   Spaceship()
   {
@@ -190,4 +190,20 @@
   {
     return deathAnimationLineCoords.size() == 0;
   }
-}*/
+
+  public int signum1(double num)
+  {
+    if (num > 0)
+    {
+      return 1;
+    }
+    else if (num < 0)
+    {
+      return -1;
+    }
+    else
+    {
+      return 0;
+    }
+  }
+}
