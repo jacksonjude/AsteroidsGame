@@ -1,6 +1,6 @@
 final char accelerateKey = 87;
-final float spaceshipAccelerateAmount = 0.08;
-final float spaceshipDecelerateAmount = 0.01;
+final float spaceshipAccelerateAmount = 0.07;
+final float spaceshipDecelerateAmount = 0.007;
 final int spaceshipTurnAmount = 5;
 final char fireBulletKey = 32;
 final int bulletFireRate = 20;
@@ -639,12 +639,12 @@ class Spaceship extends Floater
   {
     if (Math.abs(myDirectionX) > maxDirection)
     {
-      myDirectionX = maxDirection * Math.signum(myDirectionX);
+      myDirectionX = maxDirection * signum(myDirectionX);
     }
 
     if (Math.abs(myDirectionY) > maxDirection)
     {
-      myDirectionY = maxDirection * Math.signum(myDirectionY);
+      myDirectionY = maxDirection * signum(myDirectionY);
     }
   }
 
@@ -652,17 +652,17 @@ class Spaceship extends Floater
   {
     if (myDirectionX != 0 && myDirectionY != 0)
     {
-      int dirXSignum1 = (int)Math.signum(myDirectionX);
-      int dirYSignum1 = (int)Math.signum(myDirectionY);
+      int dirXSignum1 = (int)signum(myDirectionX);
+      int dirYSignum1 = (int)signum(myDirectionY);
 
       double totalDirection = Math.sqrt(Math.pow(myDirectionX, 2) + Math.pow(myDirectionY, 2));
       double dRadians = atan((float)(myDirectionY/myDirectionX));
       totalDirection -= dAmount;
-      myDirectionX = (Math.signum(myDirectionX))*Math.abs(Math.cos(dRadians)*totalDirection);
-      myDirectionY = (Math.signum(myDirectionY))*Math.abs(Math.sin(dRadians)*totalDirection);
+      myDirectionX = (signum(myDirectionX))*Math.abs(Math.cos(dRadians)*totalDirection);
+      myDirectionY = (signum(myDirectionY))*Math.abs(Math.sin(dRadians)*totalDirection);
 
-      int dirXSignum2 = (int)Math.signum(myDirectionX);
-      int dirYSignum2 = (int)Math.signum(myDirectionY);
+      int dirXSignum2 = (int)signum(myDirectionX);
+      int dirYSignum2 = (int)signum(myDirectionY);
 
       if (dirXSignum1 != dirXSignum2 || dirYSignum1 != dirYSignum2)
       {
@@ -820,5 +820,21 @@ class Star
     //triangle(myX - starSize/4, myY + starSize/4, myX + starSize/4, myY + starSize/4, myX, myY - starSize);
     //triangle(myX - starSize/4, myY - starSize/4, myX + starSize/4, myY - starSize/4, myX, myY + starSize);
     //quad(myX - starSize/4, myY - starSize/4, myX + starSize/4, myY - starSize/4, myX + starSize/4, myY + starSize/4, myX - starSize/4, myY + starSize/4);
+  }
+}
+
+public int signum(double num)
+{
+  if (num > 0)
+  {
+    return 1;
+  }
+  else if (num < 0)
+  {
+    return -1;
+  }
+  else
+  {
+    return 0;
   }
 }
