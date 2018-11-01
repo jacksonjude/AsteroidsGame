@@ -332,10 +332,10 @@ public void resetGame()
   spaceship.setPointDirection(0);
   spaceship.setHealth(1);
 
-  asteroids.removeAll(asteroids);
+  asteroids = new ArrayList<Asteroid>();
   createAsteroids();
 
-  bullets.removeAll(bullets);
+  bullets = new ArrayList<Bullet>();
 
   gameScore = 0;
 
@@ -346,7 +346,7 @@ public void newLevel()
 {
   asteroidSpeedMultiplier += 1.618;
   createAsteroids();
-  bullets.removeAll(bullets);
+  bullets = new ArrayList<Bullet>();
 }
 
 public void updateStars()
