@@ -1,4 +1,4 @@
-class Bullet extends Floater
+/*class Bullet extends Floater
 {
   private float decay = 255.0;
 
@@ -46,4 +46,4 @@ class Bullet extends Floater
   {
     return decay <= 0.0;
   }
-}
+}*/

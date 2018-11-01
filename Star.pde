@@ -1,4 +1,4 @@
-class Star
+/*class Star
 {
   float myX, myY;
   float starSize;
@@ -27,4 +27,4 @@ class Star
     //triangle(myX - starSize/4, myY - starSize/4, myX + starSize/4, myY - starSize/4, myX, myY + starSize);
     //quad(myX - starSize/4, myY - starSize/4, myX + starSize/4, myY - starSize/4, myX + starSize/4, myY + starSize/4, myX - starSize/4, myY + starSize/4);
   }
-}
+}*/

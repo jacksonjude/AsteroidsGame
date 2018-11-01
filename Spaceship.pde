@@ -1,4 +1,4 @@
-class Spaceship extends Floater
+/*class Spaceship extends Floater
 {
   Spaceship()
   {
@@ -190,4 +190,4 @@ class Spaceship extends Floater
   {
     return deathAnimationLineCoords.size() == 0;
   }
-}
+}*/
