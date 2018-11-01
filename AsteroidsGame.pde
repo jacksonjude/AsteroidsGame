@@ -1,6 +1,6 @@
 final char accelerateKey = 87;
 final float spaceshipAccelerateAmount = 0.07;
-final float spaceshipDecelerateAmount = 0.007;
+final float spaceshipDecelerateAmount = 0.01;
 final int spaceshipTurnAmount = 5;
 final char fireBulletKey = 32;
 final int bulletFireRate = 20;
@@ -639,12 +639,12 @@ class Spaceship extends Floater
   {
     if (Math.abs(myDirectionX) > maxDirection)
     {
-      myDirectionX = maxDirection * signum(myDirectionX);
+      myDirectionX = maxDirection * signum1(myDirectionX);
     }
 
     if (Math.abs(myDirectionY) > maxDirection)
     {
-      myDirectionY = maxDirection * signum(myDirectionY);
+      myDirectionY = maxDirection * signum1(myDirectionY);
     }
   }
 
@@ -652,17 +652,17 @@ class Spaceship extends Floater
   {
     if (myDirectionX != 0 && myDirectionY != 0)
     {
-      int dirXSignum1 = (int)signum(myDirectionX);
-      int dirYSignum1 = (int)signum(myDirectionY);
+      int dirXSignum1 = (int)signum1(myDirectionX);
+      int dirYSignum1 = (int)signum1(myDirectionY);
 
       double totalDirection = Math.sqrt(Math.pow(myDirectionX, 2) + Math.pow(myDirectionY, 2));
       double dRadians = atan((float)(myDirectionY/myDirectionX));
       totalDirection -= dAmount;
-      myDirectionX = (signum(myDirectionX))*Math.abs(Math.cos(dRadians)*totalDirection);
-      myDirectionY = (signum(myDirectionY))*Math.abs(Math.sin(dRadians)*totalDirection);
+      myDirectionX = (signum1(myDirectionX))*Math.abs(Math.cos(dRadians)*totalDirection);
+      myDirectionY = (signum1(myDirectionY))*Math.abs(Math.sin(dRadians)*totalDirection);
 
-      int dirXSignum2 = (int)signum(myDirectionX);
-      int dirYSignum2 = (int)signum(myDirectionY);
+      int dirXSignum2 = (int)signum1(myDirectionX);
+      int dirYSignum2 = (int)signum1(myDirectionY);
 
       if (dirXSignum1 != dirXSignum2 || dirYSignum1 != dirYSignum2)
       {
@@ -823,7 +823,7 @@ class Star
   }
 }
 
-public int signum(double num)
+public int signum1(double num)
 {
   if (num > 0)
   {
