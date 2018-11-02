@@ -4,6 +4,7 @@ class Asteroid extends Floater
   private final int asteroidCornerConstant = 12;
   private final int asteroidDeltaRandom = 5;
   private final int asteroidDeltaConstant = 10;
+  private final float asteroidSpinMax = 0.03;
 
   public int getX() { return (int) myCenterX; }
   public void setX(int x) { myCenterX = (double) x; }
@@ -24,6 +25,8 @@ class Asteroid extends Floater
   public int getSize() { return asteroidSize; }
 
   private int asteroidSize;
+  private float asteroidSpinAmount;
+  private float asteroidRotation = 0;
 
   public Asteroid(double directionX, double directionY, double pointDirection, int asteroidSize)
   {
@@ -37,6 +40,7 @@ class Asteroid extends Floater
     this.myCenterY = (Math.random()*height)-(height/2);
 
     this.asteroidSize = asteroidSize;
+    this.asteroidSpinAmount = (float)(Math.random()*asteroidSpinMax);
 
     corners = (int)(Math.random()*asteroidCornerRandom)+asteroidCornerConstant;
     xCorners = new int[corners];
@@ -54,7 +58,19 @@ class Asteroid extends Floater
   public void show()
   {
     stroke(color(255));
+    asteroidRotation += asteroidSpinAmount;
+    translate((float)myCenterX, (float)myCenterY);
+    rotate(asteroidRotation);
+    translate(-(float)myCenterX, -(float)myCenterY);
     super.show();
+    translate((float)myCenterX, (float)myCenterY);
+    rotate(-asteroidRotation);
+    translate(-(float)myCenterX, -(float)myCenterY);
+  }
+
+  public void move()
+  {
+    super.move();
   }
 
   public boolean doesIntersect(Floater floater)
