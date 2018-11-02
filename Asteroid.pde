@@ -84,7 +84,7 @@ class Asteroid extends Floater
     return pnpoly(corners, xVertex, yVertex, x, y);
   }
 
-  boolean pnpoly(int nvert, int[] vertx, int[] verty, int testx, int testy)
+  private boolean pnpoly(int nvert, int[] vertx, int[] verty, int testx, int testy)
   {
     int i, j;
     boolean c = false;
