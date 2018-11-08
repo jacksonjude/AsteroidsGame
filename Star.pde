@@ -1,8 +1,9 @@
 class Star
 {
-  float myX, myY;
-  float starSize;
-  int myOpacity;
+  private float myX, myY;
+  private float starSize;
+  private int myOpacity;
+  private int myOpacityDirection = 0;
   public Star()
   {
     myX = (float)Math.random()*width;
@@ -26,21 +27,5 @@ class Star
     //triangle(myX - starSize/4, myY + starSize/4, myX + starSize/4, myY + starSize/4, myX, myY - starSize);
     //triangle(myX - starSize/4, myY - starSize/4, myX + starSize/4, myY - starSize/4, myX, myY + starSize);
     //quad(myX - starSize/4, myY - starSize/4, myX + starSize/4, myY - starSize/4, myX + starSize/4, myY + starSize/4, myX - starSize/4, myY + starSize/4);
-  }
-
-  public int signum1(double num)
-  {
-    if (num > 0)
-    {
-      return 1;
-    }
-    else if (num < 0)
-    {
-      return -1;
-    }
-    else
-    {
-      return 0;
-    }
   }
 }

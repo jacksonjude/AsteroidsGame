@@ -1,6 +1,6 @@
 class Spaceship extends Floater
 {
-  Spaceship()
+  public Spaceship()
   {
     myColor = color(0);
     corners = 4;
