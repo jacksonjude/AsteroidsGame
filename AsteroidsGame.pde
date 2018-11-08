@@ -1,14 +1,3 @@
-final char accelerateKey = 87;
-final float spaceshipAccelerateAmount = 0.07;
-final float spaceshipDecelerateAmount = 0.01;
-final int spaceshipTurnAmount = 5;
-final char fireBulletKey = 32;
-final int bulletFireRate = 20;
-final float bulletSpeed = 5.0;
-final char turnLeftKey = 65;
-final char turnRightKey = 68;
-final char hyperspaceKey = 72;
-
 private float asteroidSpeedMultiplier = 4;
 
 Spaceship spaceship;
@@ -150,8 +139,8 @@ public void updateBullets()
   {
     if (isFiring && rechargeTime == 0)
     {
-      rechargeTime = bulletFireRate;
-      bullets.add(new Bullet((double)spaceship.getX(), (double)spaceship.getY(), spaceship.getPointDirection(), bulletSpeed));
+      rechargeTime = GameConstants.bulletFireRate;
+      bullets.add(new Bullet((double)spaceship.getX(), (double)spaceship.getY(), spaceship.getPointDirection(), GameConstants.bulletSpeed));
     }
 
     if (rechargeTime > 0)
@@ -196,7 +185,7 @@ public void mouseReleased()
 
     if (rechargeTime <= 0)
     {
-      rechargeTime = bulletFireRate;
+      rechargeTime = GameConstants.bulletFireRate;
     }
   }
 }
@@ -206,10 +195,10 @@ public void turnShip()
   switch (turningSpaceship)
   {
   case LEFT:
-    spaceship.turn(-spaceshipTurnAmount);
+    spaceship.turn(-GameConstants.spaceshipTurnAmount);
     break;
   case RIGHT:
-    spaceship.turn(spaceshipTurnAmount);
+    spaceship.turn(GameConstants.spaceshipTurnAmount);
     break;
   }
 }
@@ -266,14 +255,14 @@ public void keyPressed()
 {
   switch (keyCode)
   {
-  case accelerateKey:
+  case GameConstants.accelerateKey:
     isAccelerating = true;
     break;
-  case fireBulletKey:
+  case GameConstants.fireBulletKey:
     if (spaceship.isAlive() && !isFiring)
     {
       isFiring = true;
-      fireFrameOffset = frameCount % bulletFireRate + 1;
+      fireFrameOffset = frameCount % GameConstants.bulletFireRate + 1;
     }
 
     if (!spaceship.isAlive() && spaceship.finishedDeathAnimation())
@@ -281,13 +270,13 @@ public void keyPressed()
       resetGame();
     }
     break;
-  case turnLeftKey:
+  case GameConstants.turnLeftKey:
     turningSpaceship = LEFT;
     break;
-  case turnRightKey:
+  case GameConstants.turnRightKey:
     turningSpaceship = RIGHT;
     break;
-  case hyperspaceKey:
+  case GameConstants.hyperspaceKey:
     spaceship.setX((int)(Math.random()*width));
     spaceship.setY((int)(Math.random()*height));
     spaceship.setDirectionX(0);
@@ -299,14 +288,14 @@ public void keyReleased()
 {
   switch (keyCode)
   {
-  case accelerateKey:
+  case GameConstants.accelerateKey:
     isAccelerating = false;
     break;
-  case fireBulletKey:
+  case GameConstants.fireBulletKey:
     isFiring = false;
     break;
-  case turnLeftKey:
-  case turnRightKey:
+  case GameConstants.turnLeftKey:
+  case GameConstants.turnRightKey:
     turningSpaceship = 0;
   }
 }
@@ -315,11 +304,11 @@ public void accelerateShip()
 {
   if (!isAccelerating)
   {
-    spaceship.decelerate(spaceshipDecelerateAmount);
+    spaceship.decelerate(GameConstants.spaceshipDecelerateAmount);
   }
   else
   {
-    spaceship.accelerate(spaceshipAccelerateAmount);
+    spaceship.accelerate(GameConstants.spaceshipAccelerateAmount);
   }
 }
 

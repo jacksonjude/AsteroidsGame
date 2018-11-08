@@ -1,10 +1,5 @@
 class Asteroid extends Floater
 {
-  private final int asteroidCornerRandom = 10;
-  private final int asteroidCornerConstant = 12;
-  private final int asteroidDeltaRandom = 5;
-  private final int asteroidDeltaConstant = 10;
-
   public int getX() { return (int) myCenterX; }
   public void setX(int x) { myCenterX = (double) x; }
   public int getY() { return (int) myCenterY; }
@@ -38,7 +33,7 @@ class Asteroid extends Floater
 
     this.asteroidSize = asteroidSize;
 
-    corners = (int)(Math.random()*asteroidCornerRandom)+asteroidCornerConstant;
+    corners = (int)(Math.random()*GameConstants.asteroidCornerRandom)+GameConstants.asteroidCornerConstant;
     xCorners = new int[corners];
     yCorners = new int[corners];
 
@@ -46,8 +41,8 @@ class Asteroid extends Floater
     for (int i=0; i < corners; i++)
     {
       rotationOn += 2*PI / corners;
-      xCorners[i] = (int)(asteroidSize*((Math.random()*asteroidDeltaRandom)+asteroidDeltaConstant)*cos(rotationOn));
-      yCorners[i] = (int)(asteroidSize*((Math.random()*asteroidDeltaRandom)+asteroidDeltaConstant)*sin(rotationOn));
+      xCorners[i] = (int)(asteroidSize*((Math.random()*GameConstants.asteroidDeltaRandom)+GameConstants.asteroidDeltaConstant)*cos(rotationOn));
+      yCorners[i] = (int)(asteroidSize*((Math.random()*GameConstants.asteroidDeltaRandom)+GameConstants.asteroidDeltaConstant)*sin(rotationOn));
     }
   }
 
