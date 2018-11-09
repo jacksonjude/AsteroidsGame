@@ -14,4 +14,10 @@ class GameConstants
   public static final int asteroidCornerConstant = 12;
   public static final int asteroidDeltaRandom = 5;
   public static final int asteroidDeltaConstant = 10;
+<<<<<<< HEAD
+=======
+  public static final int asteroidSpawnCount = 20;
+  public static final int asteroidCenterSafeSquare = 25;
+  public static final int asteroidSplitSpeedDivisor = 5;
+>>>>>>> bc7f79e9c000e1e9dae229d8c71cb993cd555a99
 }

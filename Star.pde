@@ -1,5 +1,6 @@
 class Star
 {
+<<<<<<< HEAD
   public static final int maxStarOpacity = 220;
   public static final int minStarOpacity = 70;
   public static final int starOpacityRandom = 5;
@@ -9,6 +10,12 @@ class Star
   private float starSize;
   private int myOpacity = ((int)(Math.random()*2) == 1 ? maxStarOpacity : minStarOpacity);
   private int myOpacityDirection = (myOpacity == maxStarOpacity ? -1 : 1);
+=======
+  private float myX, myY;
+  private float starSize;
+  private int myOpacity;
+  private int myOpacityDirection = 0;
+>>>>>>> bc7f79e9c000e1e9dae229d8c71cb993cd555a99
   public Star()
   {
     myX = (float)Math.random()*width;

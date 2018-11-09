@@ -25,7 +25,7 @@ public void setupShip()
 
 public void createAsteroids()
 {
-  int numAsteroids = 10;
+  int numAsteroids = GameConstants.asteroidSpawnCount;
   for (int i=0; i < numAsteroids; i++)
   {
     asteroids.add(new Asteroid(Math.random()*asteroidSpeedMultiplier - asteroidSpeedMultiplier/2, Math.random()*asteroidSpeedMultiplier - asteroidSpeedMultiplier/2, Math.random()*2*PI, (int)(Math.random()*2)+2));
@@ -112,8 +112,8 @@ public void splitAsteroid(Asteroid asteroid, Floater crasher)
 {
   double asteroidDirectionX = asteroid.getDirectionX();
   double asteroidDirectionY = asteroid.getDirectionY();
-  double crasherDirectionX = crasher.getDirectionX()/5;
-  double crasherDirectionY = crasher.getDirectionY()/5;
+  double crasherDirectionX = crasher.getDirectionX()/GameConstants.asteroidSplitSpeedDivisor;
+  double crasherDirectionY = crasher.getDirectionY()/GameConstants.asteroidSplitSpeedDivisor;
 
   double netDirectionX = asteroidDirectionX + crasherDirectionX;
   double netDirectionY = asteroidDirectionY + crasherDirectionY;
