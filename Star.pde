@@ -1,8 +1,8 @@
 class Star
 {
-  float myX, myY;
-  float starSize;
-  int myOpacity;
+  private float myX, myY;
+  private float starSize;
+  private int myOpacity;
   public Star()
   {
     myX = (float)Math.random()*width;
