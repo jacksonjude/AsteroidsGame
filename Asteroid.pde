@@ -28,8 +28,11 @@ class Asteroid extends Floater
     this.myDirectionY = directionY/asteroidSize;
     this.myPointDirection = pointDirection;
 
-    this.myCenterX = (Math.random()*width)-(width/2);
-    this.myCenterY = (Math.random()*height)-(height/2);
+    while (!(this.myCenterX < 0+GameConstants.asteroidCenterSafeSquare/2 && this.myCenterX > 0-GameConstants.asteroidCenterSafeSquare/2) && !(this.myCenterY < 0+GameConstants.asteroidCenterSafeSquare/2 && this.myCenterY > 0-GameConstants.asteroidCenterSafeSquare/2))
+    {
+      this.myCenterX = (Math.random()*width)-(width/2);
+      this.myCenterY = (Math.random()*height)-(height/2);
+    }
 
     this.asteroidSize = asteroidSize;
 

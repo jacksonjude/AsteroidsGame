@@ -14,4 +14,7 @@ class GameConstants
   static final int asteroidCornerConstant = 12;
   static final int asteroidDeltaRandom = 5;
   static final int asteroidDeltaConstant = 10;
+  static final int asteroidSpawnCount = 20;
+  static final int asteroidCenterSafeSquare = 25;
+  static final int asteroidSplitSpeedDivisor = 5;
 }
