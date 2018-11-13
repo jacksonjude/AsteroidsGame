@@ -85,20 +85,4 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
     rotate(-1*dRadians);
     translate(-1*(float)myCenterX, -1*(float)myCenterY);
   }
-
-  public int signum1(double num)
-  {
-    if (num > 0)
-    {
-      return 1;
-    }
-    else if (num < 0)
-    {
-      return -1;
-    }
-    else
-    {
-      return 0;
-    }
-  }
 }

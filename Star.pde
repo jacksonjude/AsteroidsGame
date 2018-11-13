@@ -1,5 +1,10 @@
 class Star
 {
+  public static final int maxStarOpacity = 220;
+  public static final int minStarOpacity = 70;
+  public static final int starOpacityRandom = 5;
+  public static final int starOpacityConstant = 2;
+
   private float myX, myY;
   private float starSize;
   private int myOpacity = (int)(Math.random()*GameConstants.starOpacityMax)+GameConstants.starOpacityMin;
