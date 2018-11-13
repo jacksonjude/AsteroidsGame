@@ -19,6 +19,8 @@ class Asteroid extends Floater
   public int getSize() { return asteroidSize; }
 
   private int asteroidSize;
+  private int rotationSpeed = Math.random()*GameConstants.asteroidRotationSpeed;
+  private int rotationOn = 0;
 
   public Asteroid(double directionX, double directionY, double pointDirection, int asteroidSize)
   {
@@ -28,10 +30,18 @@ class Asteroid extends Floater
     this.myDirectionY = directionY/asteroidSize;
     this.myPointDirection = pointDirection;
 
-    while (!(this.myCenterX < 0+GameConstants.asteroidCenterSafeSquare/2 && this.myCenterX > 0-GameConstants.asteroidCenterSafeSquare/2) && !(this.myCenterY < 0+GameConstants.asteroidCenterSafeSquare/2 && this.myCenterY > 0-GameConstants.asteroidCenterSafeSquare/2))
+    this.myCenterX = (Math.random()*width);
+    this.myCenterY = (Math.random()*height);
+
+    int maxWidth = (width/2)+(GameConstants.asteroidCenterSafeSquare/2);
+    int minWidth = (width/2)-(GameConstants.asteroidCenterSafeSquare/2);
+    int maxHeight = (height/2)+(GameConstants.asteroidCenterSafeSquare/2);
+    int minHeight = (height/2)-(GameConstants.asteroidCenterSafeSquare/2);
+
+    while ((this.myCenterX < maxWidth && this.myCenterX > minWidth) && (this.myCenterY < maxHeight && this.myCenterY > minHeight))
     {
-      this.myCenterX = (Math.random()*width)-(width/2);
-      this.myCenterY = (Math.random()*height)-(height/2);
+      this.myCenterX = (Math.random()*width);
+      this.myCenterY = (Math.random()*height);
     }
 
     this.asteroidSize = asteroidSize;
@@ -52,6 +62,7 @@ class Asteroid extends Floater
   public void show()
   {
     stroke(color(255));
+    rotate()
     super.show();
   }
 

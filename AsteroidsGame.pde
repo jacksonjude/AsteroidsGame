@@ -78,7 +78,10 @@ public void updateAsteroids()
 
     for (int k=0; k < spaceship.getXCorners().length; k++)
     {
-      if (spaceship.isAlive() && asteroids.get(i).doesIntersectAtPoint(spaceship.getXCorners()[k] + spaceship.getX(), spaceship.getYCorners()[k] + spaceship.getY()))
+      float dRadians = (float)(spaceship.myPointDirection*(Math.PI/180));
+      int xCorner = (int)((spaceship.getXCorners()[k] - spaceship.getYCorners()[k]));
+      int yCorner = (int)((spaceship.getXCorners()[k] + spaceship.getYCorners()[k]));
+      if (spaceship.isAlive() && asteroids.get(i).doesIntersectAtPoint(xCorner + spaceship.getX(), yCorner + spaceship.getY()))
       {
         splitAsteroid(asteroids.get(i), spaceship);
         spaceship.takeDamage(1);
