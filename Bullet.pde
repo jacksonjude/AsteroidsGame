@@ -45,7 +45,6 @@ class Bullet extends Floater
     int r = (myColor & R_MASK)>>16;
     int g = (myColor & G_MASK)>>8;
     int b = myColor & B_MASK;
-    println(r);
     myColor = color(r, g, b, decay);
     stroke(255, decay);
     super.show();
