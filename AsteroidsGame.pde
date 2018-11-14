@@ -143,7 +143,7 @@ public void updateBullets()
     if (isFiring && rechargeTime == 0)
     {
       rechargeTime = GameConstants.bulletFireRate;
-      bullets.add(new Bullet((double)spaceship.getX(), (double)spaceship.getY(), spaceship.getPointDirection(), GameConstants.bulletSpeed));
+      bullets.add(new RainbowBullet((double)spaceship.getX(), (double)spaceship.getY(), spaceship.getPointDirection(), GameConstants.bulletSpeed));
     }
 
     if (rechargeTime > 0)
