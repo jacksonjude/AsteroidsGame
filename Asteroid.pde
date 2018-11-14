@@ -20,9 +20,9 @@ class Asteroid extends Floater
 
   private int asteroidSize;
   private float asteroidRotationSpeed;
-  private float asteroidRotationOn = 0;
+  //private float myPointDirection = 0;
 
-  public Asteroid(double directionX, double directionY, double pointDirection, int asteroidSize)
+  public Asteroid(double directionX, double directionY, double pointDirection, int asteroidSize, int boundingX, int boundingY)
   {
     myColor = color(0);
 
@@ -33,10 +33,10 @@ class Asteroid extends Floater
     this.myCenterX = (Math.random()*width);
     this.myCenterY = (Math.random()*height);
 
-    int maxWidth = (width/2)+(GameConstants.asteroidCenterSafeSquare/2);
-    int minWidth = (width/2)-(GameConstants.asteroidCenterSafeSquare/2);
-    int maxHeight = (height/2)+(GameConstants.asteroidCenterSafeSquare/2);
-    int minHeight = (height/2)-(GameConstants.asteroidCenterSafeSquare/2);
+    int maxWidth = (boundingX)+(GameConstants.asteroidCenterSafeSquare/2);
+    int minWidth = (boundingX)-(GameConstants.asteroidCenterSafeSquare/2);
+    int maxHeight = (boundingY)+(GameConstants.asteroidCenterSafeSquare/2);
+    int minHeight = (boundingY)-(GameConstants.asteroidCenterSafeSquare/2);
 
     while ((this.myCenterX < maxWidth && this.myCenterX > minWidth) && (this.myCenterY < maxHeight && this.myCenterY > minHeight))
     {
@@ -64,16 +64,16 @@ class Asteroid extends Floater
   public void show()
   {
     stroke(color(255));
-    asteroidRotationOn += asteroidRotationSpeed;
-    translate((float)myCenterX, (float)myCenterY);
-    rotate(asteroidRotationOn);
-    translate(-(float)myCenterX, -(float)myCenterY);
+    myPointDirection += asteroidRotationSpeed;
+    //translate((float)myCenterX, (float)myCenterY);
+    //rotate((float)myPointDirection);
+    //translate(-(float)myCenterX, -(float)myCenterY);
     super.show();
-    translate((float)myCenterX, (float)myCenterY);
-    rotate(-asteroidRotationOn);
-    translate(-(float)myCenterX, -(float)myCenterY);
+    //translate((float)myCenterX, (float)myCenterY);
+    //rotate(-(float)myPointDirection);
+    //translate(-(float)myCenterX, -(float)myCenterY);
   }
-  
+
   public boolean doesIntersect(Floater floater)
   {
     boolean intersection = false;

@@ -28,7 +28,7 @@ public void createAsteroids()
   int numAsteroids = GameConstants.asteroidSpawnCount;
   for (int i=0; i < numAsteroids; i++)
   {
-    asteroids.add(new Asteroid(Math.random()*asteroidSpeedMultiplier - asteroidSpeedMultiplier/2, Math.random()*asteroidSpeedMultiplier - asteroidSpeedMultiplier/2, Math.random()*2*PI, (int)(Math.random()*2)+2));
+    asteroids.add(new Asteroid(Math.random()*asteroidSpeedMultiplier - asteroidSpeedMultiplier/2, Math.random()*asteroidSpeedMultiplier - asteroidSpeedMultiplier/2, Math.random()*2*PI, (int)(Math.random()*2)+2, (int)spaceship.getX(), (int)spaceship.getY()));
   }
 }
 
@@ -125,8 +125,8 @@ public void splitAsteroid(Asteroid asteroid, Floater crasher)
   double asteroidPointDirection = asteroid.getPointDirection();
   double bulletPointDirection = crasher.getPointDirection();
   double newAsteroidPointDirection = (asteroidPointDirection + bulletPointDirection)/2;
-  Asteroid asteroid1 = new Asteroid(netDirectionX, netDirectionY, newAsteroidPointDirection, asteroid.getSize()-1);
-  Asteroid asteroid2 = new Asteroid(netDirection * Math.cos(-newAsteroidPointDirection), netDirection * Math.sin(-newAsteroidPointDirection), newAsteroidPointDirection, asteroid.getSize()-1);
+  Asteroid asteroid1 = new Asteroid(netDirectionX, netDirectionY, newAsteroidPointDirection, asteroid.getSize()-1, (int)spaceship.getX(), (int)spaceship.getY());
+  Asteroid asteroid2 = new Asteroid(netDirection * Math.cos(-newAsteroidPointDirection), netDirection * Math.sin(-newAsteroidPointDirection), newAsteroidPointDirection, asteroid.getSize()-1, (int)spaceship.getX(), (int)spaceship.getY());
 
   asteroid1.setX(asteroid.getX());
   asteroid1.setY(asteroid.getY());
@@ -324,13 +324,13 @@ public void resetGame()
   spaceship.setPointDirection(0);
   spaceship.setHealth(1);
 
+  asteroidSpeedMultiplier = 4;
   asteroids = new ArrayList<Asteroid>();
   createAsteroids();
 
   bullets = new ArrayList<Bullet>();
 
   gameScore = 0;
-
   gameOverOffsetFrame = 0;
 }
 

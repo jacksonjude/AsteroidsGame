@@ -32,12 +32,21 @@ class Bullet extends Floater
 
     xCorners = xS;
     yCorners = yS;
+
+    myColor = color(255, 255);
   }
 
   public void show()
   {
     decay -= 2.55;
-    myColor = color(255, decay);
+    int B_MASK = 255;
+    int G_MASK = 255<<8;
+    int R_MASK = 255<<16;
+    int r = (myColor & R_MASK)>>16;
+    int g = (myColor & G_MASK)>>8;
+    int b = myColor & B_MASK;
+    println(r);
+    myColor = color(r, g, b, decay);
     stroke(255, decay);
     super.show();
   }
