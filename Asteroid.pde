@@ -19,8 +19,8 @@ class Asteroid extends Floater
   public int getSize() { return asteroidSize; }
 
   private int asteroidSize;
-  private int rotationSpeed = Math.random()*GameConstants.asteroidRotationSpeed;
-  private int rotationOn = 0;
+  private float asteroidRotationSpeed;
+  private float asteroidRotationOn = 0;
 
   public Asteroid(double directionX, double directionY, double pointDirection, int asteroidSize)
   {
@@ -57,15 +57,23 @@ class Asteroid extends Floater
       xCorners[i] = (int)(asteroidSize*((Math.random()*GameConstants.asteroidDeltaRandom)+GameConstants.asteroidDeltaConstant)*cos(rotationOn));
       yCorners[i] = (int)(asteroidSize*((Math.random()*GameConstants.asteroidDeltaRandom)+GameConstants.asteroidDeltaConstant)*sin(rotationOn));
     }
+
+    asteroidRotationSpeed = (float)Math.random()*GameConstants.asteroidRotationMax+(GameConstants.asteroidRotationMax-GameConstants.asteroidRotationMin);
   }
 
   public void show()
   {
     stroke(color(255));
-    rotate()
+    asteroidRotationOn += asteroidRotationSpeed;
+    translate((float)myCenterX, (float)myCenterY);
+    rotate(asteroidRotationOn);
+    translate(-(float)myCenterX, -(float)myCenterY);
     super.show();
+    translate((float)myCenterX, (float)myCenterY);
+    rotate(-asteroidRotationOn);
+    translate(-(float)myCenterX, -(float)myCenterY);
   }
-
+  
   public boolean doesIntersect(Floater floater)
   {
     boolean intersection = false;
