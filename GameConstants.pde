@@ -5,7 +5,7 @@ class GameConstants
   public static final float spaceshipDecelerateAmount = 0.01;
   public static final int spaceshipTurnAmount = 5;
   public static final char fireBulletKey = 32;
-  public static final int bulletFireRate = 30;
+  public static final int bulletFireRate = 1;
   public static final float bulletSpeed = 5.0;
   public static final char turnLeftKey = 65;
   public static final char turnRightKey = 68;
@@ -17,8 +17,8 @@ class GameConstants
   public static final int asteroidSpawnCount = 12;
   public static final int asteroidCenterSafeSquare = 300;
   public static final int asteroidSplitSpeedDivisor = 5;
-  public static final float asteroidRotationMax = 0.02;
-  public static final float asteroidRotationMin = 0.005;
+  public static final float asteroidRotationMax = 1.0;
+  public static final float asteroidRotationMin = 0.5;
   public static final int starOpacityDeltaRandom = 5;
   public static final int starOpacityDeltaConstant = 1;
   public static final int starOpacityMax = 150;
