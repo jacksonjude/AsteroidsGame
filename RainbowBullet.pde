@@ -1,5 +1,9 @@
 class RainbowBullet extends Bullet
 {
+  public static final int bulletFireRate = 1;
+
+  public RainbowBullet() {}
+
   public RainbowBullet(double centerX, double centerY, double pointDirection, float bulletSpeed)
   {
     super(centerX, centerY, pointDirection, bulletSpeed);
@@ -16,19 +20,11 @@ class RainbowBullet extends Bullet
 
   public void show()
   {
+    overrideStrokeColor = true;
+    colorMode(HSB, 255);
+    stroke(decay, 255, decay);
+    colorMode(RGB, 255);
     super.show();
-    translate((float)myCenterX, (float)myCenterY);
-    float dRadians = (float)(myPointDirection*(Math.PI/180));
-    //float x1 = (float)((x*Math.cos(dRadians) - y*Math.sin(dRadians)));
-    //float y1 = (float)((x*Math.sin(dRadians) + y*Math.cos(dRadians)));
-    rotate(dRadians);
-    drawPixel(0, 2, color(180, 0, 180));
-    drawPixel(0, -2, color(255, 0, 0));
-    drawPixel(0, 0, color(0, 255, 0));
-    drawPixel(0, 1, color(0, 0, 255));
-    drawPixel(0, -1, color(180, 180, 0));
-    rotate(-dRadians);
-    translate(-(float)myCenterX, -(float)myCenterY);
   }
 
   public void drawPixel(float x, float y, int pixelColor)

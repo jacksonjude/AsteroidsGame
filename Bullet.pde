@@ -1,6 +1,9 @@
 class Bullet extends Floater
 {
-  private float decay = 255.0;
+  public static final int bulletFireRate = 30;
+
+  protected float decay = 255.0;
+  protected boolean overrideStrokeColor = false;
 
   public int getX() { return (int) myCenterX; }
   public void setX(int x) { myCenterX = (double) x; }
@@ -17,6 +20,8 @@ class Bullet extends Floater
 
   public int[] getXCorners() { return xCorners; }
   public int[] getYCorners() { return yCorners; }
+
+  public Bullet() {}
 
   public Bullet(double centerX, double centerY, double pointDirection, float bulletSpeed)
   {
@@ -39,14 +44,10 @@ class Bullet extends Floater
   public void show()
   {
     decay -= 2.55;
-    int B_MASK = 255;
-    int G_MASK = 255<<8;
-    int R_MASK = 255<<16;
-    int r = (myColor & R_MASK)>>16;
-    int g = (myColor & G_MASK)>>8;
-    int b = myColor & B_MASK;
-    myColor = color(r, g, b, decay);
-    stroke(255, decay);
+    if (!overrideStrokeColor)
+    {
+      stroke(255, decay);
+    }
     super.show();
   }
 

@@ -284,6 +284,7 @@ public void keyPressed()
     spaceship.setY((int)(Math.random()*height));
     spaceship.setDirectionX(0);
     spaceship.setDirectionY(0);
+    break;
   }
 }
 
@@ -300,6 +301,7 @@ public void keyReleased()
   case GameConstants.turnLeftKey:
   case GameConstants.turnRightKey:
     turningSpaceship = 0;
+    break;
   }
 }
 

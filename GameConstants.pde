@@ -17,7 +17,7 @@ class GameConstants
   public static final int asteroidSpawnCount = 12;
   public static final int asteroidCenterSafeSquare = 300;
   public static final int asteroidSplitSpeedDivisor = 5;
-  public static final float asteroidRotationMax = 3.0;
+  public static final float asteroidRotationMax = 1.0;
   public static final float asteroidRotationMin = 0.5;
   public static final int starOpacityDeltaRandom = 5;
   public static final int starOpacityDeltaConstant = 1;
