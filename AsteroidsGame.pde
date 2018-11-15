@@ -8,6 +8,9 @@ ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 ArrayList<Star> stars = new ArrayList<Star>();
 
 private int gameScore = 0;
+private int levelOn = 1;
+
+private Class bulletToUse = RainbowBullet.class;
 
 public void setup()
 {
@@ -16,27 +19,6 @@ public void setup()
   setupShip();
   createAsteroids();
   createStars();
-
-  Class bulletToUse = RainbowBullet.class;
-  try
-  {
-    java.lang.reflect.Constructor constructor = bulletToUse.getDeclaredConstructor(AsteroidsGame.class, double.class, double.class, double.class, float.class);
-    bullets.add((Bullet)constructor.newInstance(this, width/2, height/2, 0.0, 0.0));
-  }
-  catch (Exception e)
-  {
-    println(e);
-  }
-
-  try
-  {
-    java.lang.reflect.Field field = ((Class<Bullet>)bulletToUse).getDeclaredField("bulletFireRate");
-    println(field);
-  }
-  catch (Exception e)
-  {
-    println(e);
-  }
 }
 
 public void setupShip()
@@ -165,8 +147,10 @@ public void updateBullets()
   {
     if (isFiring && rechargeTime == 0)
     {
-      rechargeTime = GameConstants.bulletFireRate;
-      bullets.add(new RainbowBullet((double)spaceship.getX(), (double)spaceship.getY(), spaceship.getPointDirection(), GameConstants.bulletSpeed));
+      //rechargeTime = GameConstants.bulletFireRate;
+      rechargeTime = getBulletFireRate();
+      //bullets.add(new RainbowBullet((double)spaceship.getX(), (double)spaceship.getY(), spaceship.getPointDirection(), GameConstants.bulletSpeed));
+      addBullet((double)spaceship.getX(), (double)spaceship.getY(), spaceship.getPointDirection());
     }
 
     if (rechargeTime > 0)
@@ -211,7 +195,8 @@ public void mouseReleased()
 
     if (rechargeTime <= 0)
     {
-      rechargeTime = GameConstants.bulletFireRate;
+      //rechargeTime = GameConstants.bulletFireRate;
+      rechargeTime = getBulletFireRate();
     }
   }
 }
@@ -288,7 +273,8 @@ public void keyPressed()
     if (spaceship.isAlive() && !isFiring)
     {
       isFiring = true;
-      fireFrameOffset = frameCount % GameConstants.bulletFireRate + 1;
+      //fireFrameOffset = frameCount % GameConstants.bulletFireRate + 1;
+      fireFrameOffset = frameCount % getBulletFireRate() + 1;
     }
 
     if (!spaceship.isAlive() && spaceship.finishedDeathAnimation())
@@ -364,6 +350,7 @@ public void newLevel()
   asteroidSpeedMultiplier += 1.618;
   createAsteroids();
   bullets = new ArrayList<Bullet>();
+  levelOn++;
 }
 
 public void updateStars()
@@ -372,5 +359,32 @@ public void updateStars()
   {
     stars.get(i).randomizeStarFill();
     stars.get(i).show();
+  }
+}
+
+public void addBullet(double xPos, double yPos, double pointDirection)
+{
+  try
+  {
+    java.lang.reflect.Constructor constructor = bulletToUse.getDeclaredConstructor(AsteroidsGame.class, double.class, double.class, double.class);
+    bullets.add((Bullet)constructor.newInstance(this, xPos, yPos, pointDirection));
+  }
+  catch (Exception e)
+  {
+    println(e);
+  }
+}
+
+public int getBulletFireRate()
+{
+  try
+  {
+    java.lang.reflect.Field field = ((Class<Bullet>)bulletToUse).getDeclaredField("bulletFireRate");
+    return (int)field.get(null);
+  }
+  catch (Exception e)
+  {
+    println(e);
+    return Bullet.bulletFireRate;
   }
 }

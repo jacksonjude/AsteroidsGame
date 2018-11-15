@@ -1,6 +1,7 @@
 class Bullet extends Floater
 {
   public static final int bulletFireRate = 30;
+  public float getBulletSpeed() { return 5.0; }
 
   protected float decay = 255.0;
   protected boolean overrideStrokeColor = false;
@@ -23,13 +24,13 @@ class Bullet extends Floater
 
   public Bullet() {}
 
-  public Bullet(double centerX, double centerY, double pointDirection, float bulletSpeed)
+  public Bullet(double centerX, double centerY, double pointDirection)
   {
     this.myCenterX = centerX;
     this.myCenterY = centerY;
     this.myPointDirection = pointDirection;
-    this.myDirectionX = bulletSpeed*Math.cos(myPointDirection*(Math.PI/180));
-    this.myDirectionY = bulletSpeed*Math.sin(myPointDirection*(Math.PI/180));
+    this.myDirectionX = getBulletSpeed()*Math.cos(myPointDirection*(Math.PI/180));
+    this.myDirectionY = getBulletSpeed()*Math.sin(myPointDirection*(Math.PI/180));
 
     corners = 4;
     int[] xS = {1, 1, -1, -1};
