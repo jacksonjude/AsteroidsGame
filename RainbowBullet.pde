@@ -1,7 +1,6 @@
 class RainbowBullet extends Bullet
 {
   public static final int bulletFireRate = 1;
-  @Override
   public float getBulletSpeed() { return 50.0; }
 
   public RainbowBullet() {}
