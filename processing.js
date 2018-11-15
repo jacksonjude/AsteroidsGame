@@ -10129,7 +10129,7 @@
           return new Processing(canvas, code.join("\n"))
         } catch(e) {
           console.log(block);
-          console.log(error);
+          console.log(errors);
           throw "Processing.js: Unable to execute pjs sketch: " + e;
         } else throw "Processing.js: Unable to load pjs sketch files: " + errors.join("\n");
       }
