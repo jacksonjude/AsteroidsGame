@@ -1,6 +1,7 @@
 class Bullet extends Floater
 {
   private float decay = 255.0;
+  public static final int bulletFireRate = 30;
 
   public int getX() { return (int) myCenterX; }
   public void setX(int x) { myCenterX = (double) x; }
@@ -17,6 +18,8 @@ class Bullet extends Floater
 
   public int[] getXCorners() { return xCorners; }
   public int[] getYCorners() { return yCorners; }
+
+  public Bullet() {}
 
   public Bullet(double centerX, double centerY, double pointDirection, float bulletSpeed)
   {
