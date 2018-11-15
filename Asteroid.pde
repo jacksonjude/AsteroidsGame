@@ -20,7 +20,6 @@ class Asteroid extends Floater
 
   private int asteroidSize;
   private float asteroidRotationSpeed;
-  //private float myPointDirection = 0;
 
   public Asteroid(double directionX, double directionY, double pointDirection, int asteroidSize, int boundingX, int boundingY)
   {
