@@ -1,4 +1,4 @@
-//import java.lang.reflect.Class;
+import java.lang.reflect.*;
 
 private float asteroidSpeedMultiplier = 4;
 
@@ -366,7 +366,7 @@ public void addBullet(double xPos, double yPos, double pointDirection)
 {
   try
   {
-    java.lang.reflect.Constructor constructor = bulletToUse.getDeclaredConstructor(AsteroidsGame.class, double.class, double.class, double.class);
+    Constructor constructor = bulletToUse.getDeclaredConstructor(AsteroidsGame.class, double.class, double.class, double.class);
     bullets.add((Bullet)constructor.newInstance(this, xPos, yPos, pointDirection));
   }
   catch (Exception e)
@@ -379,7 +379,7 @@ public int getBulletFireRate()
 {
   try
   {
-    java.lang.reflect.Field field = ((Class<Bullet>)bulletToUse).getDeclaredField("bulletFireRate");
+    Field field = ((Class<Bullet>)bulletToUse).getDeclaredField("bulletFireRate");
     return (int)field.get(null);
   }
   catch (Exception e)
