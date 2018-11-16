@@ -10,7 +10,7 @@ ArrayList<Star> stars = new ArrayList<Star>();
 private int gameScore = 0;
 private int levelOn = 1;
 
-public Class bulletToUse = RainbowBullet.class;
+public Class bulletToUse = Bullet.class;
 
 public void setup()
 {
