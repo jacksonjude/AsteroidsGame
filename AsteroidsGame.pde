@@ -381,12 +381,20 @@ public void addBullet(double xPos, double yPos, double pointDirection)
 {
   try
   {
-    Constructor constructor = bulletToUse.getDeclaredConstructor(AsteroidsGame.class, double.class, double.class, double.class);
-    bullets.add((Bullet)constructor.newInstance(this, xPos, yPos, pointDirection));
+    if (bulletToUse != null)
+    {
+      Constructor constructor = bulletToUse.getDeclaredConstructor(AsteroidsGame.class, double.class, double.class, double.class);
+      bullets.add((Bullet)constructor.newInstance(this, xPos, yPos, pointDirection));
+    }
+    else
+    {
+      throw new Exception();
+    }
   }
   catch (Exception e)
   {
     println(e);
+    bullets.add(new Bullet(xPos, yPos, pointDirection));
   }
 }
 
@@ -394,8 +402,15 @@ public int getBulletFireRate()
 {
   try
   {
-    Field field = ((Class<Bullet>)bulletToUse).getDeclaredField("bulletFireRate");
-    return (int)field.get(null);
+    if (bulletToUse != null)
+    {
+      Field field = ((Class<Bullet>)bulletToUse).getDeclaredField("bulletFireRate");
+      return (int)field.get(null);
+    }
+    else
+    {
+      throw new Exception();
+    }
   }
   catch (Exception e)
   {
