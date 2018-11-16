@@ -10,7 +10,7 @@ ArrayList<Star> stars = new ArrayList<Star>();
 private int gameScore = 0;
 private int levelOn = 1;
 
-private Class bulletToUse = RainbowBullet.class;
+public Class bulletToUse = RainbowBullet.class;
 
 public void setup()
 {
@@ -19,6 +19,8 @@ public void setup()
   setupShip();
   createAsteroids();
   createStars();
+
+  println(bulletToUse);
 }
 
 public void setupShip()
