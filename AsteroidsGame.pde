@@ -409,7 +409,7 @@ public int getBulletFireRate()
     }
     else
     {
-      return Bullet.bulletFireRate;
+      return 30;
     }
   }
   catch (Exception e)
