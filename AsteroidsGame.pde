@@ -1,4 +1,5 @@
 import java.lang.reflect.*;
+import java.lang.Class;
 
 private float asteroidSpeedMultiplier = 4;
 
