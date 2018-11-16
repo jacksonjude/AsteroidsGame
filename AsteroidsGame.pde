@@ -388,7 +388,7 @@ public void addBullet(double xPos, double yPos, double pointDirection)
     }
     else
     {
-      throw new Exception();
+      bullets.add(new Bullet(xPos, yPos, pointDirection));
     }
   }
   catch (Exception e)
@@ -409,7 +409,7 @@ public int getBulletFireRate()
     }
     else
     {
-      throw new Exception();
+      return Bullet.bulletFireRate;
     }
   }
   catch (Exception e)
