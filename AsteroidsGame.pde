@@ -10,7 +10,8 @@ ArrayList<Star> stars = new ArrayList<Star>();
 private int gameScore = 0;
 private int levelOn = 1;
 
-public Class bulletToUse = Bullet.class;
+//public Class bulletToUse = Bullet.class;
+private Class bulletToUse;
 
 public void setup()
 {
@@ -20,7 +21,19 @@ public void setup()
   createAsteroids();
   createStars();
 
-  println(bulletToUse);
+  setBulletType("RainbowBullet");
+}
+
+public void setBulletType(String type)
+{
+  try
+  {
+    bulletToUse = Class.forName("AsteroidsGame$" + type);
+  }
+  catch (Exception e)
+  {
+    println(e);
+  }
 }
 
 public void setupShip()
