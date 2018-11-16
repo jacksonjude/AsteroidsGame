@@ -1,5 +1,4 @@
 import java.lang.reflect.*;
-import java.lang.Class;
 
 private float asteroidSpeedMultiplier = 4;
 
@@ -12,7 +11,7 @@ private int gameScore = 0;
 private int levelOn = 1;
 
 //public Class bulletToUse = Bullet.class;
-private Class bulletToUse;
+private java.lang.Class bulletToUse;
 
 public void setup()
 {
@@ -29,7 +28,7 @@ public void setBulletType(String type)
 {
   try
   {
-    bulletToUse = Class.forName("AsteroidsGame$" + type);
+    bulletToUse = java.lang.Class.forName("AsteroidsGame$" + type);
   }
   catch (Exception e)
   {
